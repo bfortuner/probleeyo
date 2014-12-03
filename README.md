@@ -21,7 +21,7 @@ Responsive web app using MeanJS stack. Bootstrapped with Yo generator: https://g
 - bower install
 
 ##Run MongoDB
--mongod
+- mongod
 
 ##Run App
 - bower server
