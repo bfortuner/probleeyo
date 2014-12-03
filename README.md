@@ -17,6 +17,7 @@ Responsive web app using MeanJS stack. Bootstrapped with Yo generator: https://g
 ##Build App
 - git clone https://github.com/bfortuner/probleeyo.git
 - cd probleeyo/
+- cp server/config/local.env.sample.js local.env.js
 - npm install
 - bower install
 
