@@ -1,3 +1,6 @@
+#ProbleeYo
+Responsive web app using MeanJS stack. Bootstrapped with Yo generator: https://github.com/DaftMonk/generator-angular-fullstack
+
 ##Prerequisites
 - sudo pip install nodeenv (Node virtual env -- super useful!)
 - MongoDB (http://docs.mongodb.org/manual/tutorial/getting-started/)
@@ -9,6 +12,7 @@
 - npm install -g bower
 - npm install -g grunt-cli
 - npm install -g yo
+- npm install -g generator-angular-fullstack
 
 ##Build App
 - git clone https://github.com/bfortuner/probleeyo.git
