@@ -23,18 +23,17 @@
 - bower server
 
 ##Useful commands
--deactivate_node (exit nodeenv)
--mongod (run daemon)
--mongo (run shell)
--
+- deactivate_node (exit nodeenv)
 
-##Useful MongoDB Commands
-- db
+##MongoDB Commands
+- mongod (run daemon)
+- mongo (run shell)
+- db 
 - show dbs
 - show collections
 - db.problems.find( {"title":"my problem title"} )
 - db.problems.insert({"title":"my problem title"} )
-- b.problems.find({ "_id" : ObjectId("547f7c113b3afaa7fd72710a")})
+- db.problems.find({ "_id" : ObjectId("547f7c113b3afaa7fd72710a")})
 - db.problems.update(
    {"_id" : ObjectId("547f7c133b3afaa7fd72710b") },
    {
