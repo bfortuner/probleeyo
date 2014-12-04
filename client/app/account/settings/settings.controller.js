@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('probleeAppApp')
+angular.module('probleeApp')
   .controller('SettingsCtrl', function ($scope, User, Auth) {
     $scope.errors = {};
 

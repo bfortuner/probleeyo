@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('probleeAppApp')
+angular.module('probleeApp')
   .config(function ($routeProvider) {
     $routeProvider
       .when('/admin', {

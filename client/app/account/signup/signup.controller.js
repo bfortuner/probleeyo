@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('probleeAppApp')
+angular.module('probleeApp')
   .controller('SignupCtrl', function ($scope, Auth, $location, $window) {
     $scope.user = {};
     $scope.errors = {};

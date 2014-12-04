@@ -3,7 +3,7 @@
 /**
  * Removes server error when user updates input
  */
-angular.module('probleeAppApp')
+angular.module('probleeApp')
   .directive('mongooseError', function () {
     return {
       restrict: 'A',

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('probleeAppApp', [
+angular.module('probleeApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',

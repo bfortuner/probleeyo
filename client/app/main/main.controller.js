@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('probleeAppApp')
+angular.module('probleeApp')
   .controller('MainCtrl', function ($scope, $http) {
     $scope.awesomeThings = [];
 
