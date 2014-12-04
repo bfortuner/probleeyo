@@ -5,9 +5,11 @@
        Incorrect! Check the highlighted areas.
      </div>
 
-     <header class="problemDesc container">
+     <div class="problemDesc">
+      <div class="container"
        <p id="info-text">{{infoText[problemIndex]}}</p>
-     </header>
+     </div>
+     </div>
 
      <div class="codingArea">
       <section class="container problemCode" id="problem0">
@@ -84,14 +86,8 @@
   <hr>
 
 <div class="container">
-   <div class="col-xs-8">
-     <button class="btn btn-success btn-lg" id="submit" ng-click="submitAnswer()">Submit</button>
-   </div>
-
- </form>
-
- <div class="col-xs-4">
-   <button class="btn btn-default btn-lg" id="skip" ng-click="showNextProblem()">Skip</button>
- </div>
-
+<div class="row">
+   <div class="col-xs-8 btn btn-xl btn-success" ng-click="submitAnswer()">Run</div>
+   <div class="col-xs-4 btn btn-xl btn-default" ng-click="showNextProblem()">Skip</div>
+</div>
 </div>
