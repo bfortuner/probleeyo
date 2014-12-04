@@ -2,5 +2,30 @@
 
 angular.module('probleeApp')
   .controller('TopicsCtrl', function ($scope) {
-    $scope.message = 'Hello';
+    $scope.topicsBody = [{
+      'title': 'Strings',
+      'link': '/problems/strings'
+    },
+    {
+      'title': 'Lists',
+      'link': '/problems/lists'
+    },
+    {
+      'title': 'Functions',
+      'link': '/problems/functions'
+    },
+    {
+      'title': 'Loops',
+      'link': '/problems/loops'
+    },
+    {
+      'title': 'Logic',
+      'link': '/problems/logic'
+    },
+    {
+      'title': 'Recursion',
+      'link': '/problems/recursion'
+    }];
+
+
   });
