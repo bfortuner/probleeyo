@@ -13,6 +13,7 @@ Responsive web app using MeanJS stack. Bootstrapped with Yo generator: https://g
 - npm install -g grunt-cli
 - npm install -g yo
 - npm install -g generator-angular-fullstack
+- npm install -g forever
 
 ##Build App
 - git clone https://github.com/bfortuner/probleeyo.git
@@ -26,6 +27,7 @@ Responsive web app using MeanJS stack. Bootstrapped with Yo generator: https://g
 
 ##Run App
 - bower server
+- forever start --spinSleepTime 10000 server/app.js   (daemon)
 
 ##Useful commands
 - deactivate_node (exit nodeenv)
