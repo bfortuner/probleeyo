@@ -29,10 +29,16 @@ Responsive web app using MeanJS stack. Bootstrapped with Yo generator: https://g
 - bower server
 - forever start --spinSleepTime 10000 server/app.js   (daemon)
 
-##Deploy to OpenShift
+##OpenShift
+Create App
 - install ihc client (https://developers.openshift.com/en/getting-started-client-tools.html)
 - yo angular-fullstack:openshift
 - docs (https://github.com/DaftMonk/generator-angular-fullstack#openshift)
+
+Push Changes
+- grunt
+- grunt buildcontrol:openshift -v
+- rhc app-restart -a probleeyo
 
 ##Useful commands
 - deactivate_node (exit nodeenv)
