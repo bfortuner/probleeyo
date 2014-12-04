@@ -5,18 +5,8 @@
     <h1>Coding problems!</h1>
     <p class="lead">JavaScript practice problems from across the web</p>
     <!--<img src="assets/images/yeoman.png" alt="I'm Yeoman">-->
-    <div ng-hide="isLoggedIn()" class="container">
-    <div class="row">
-          <a style="width:200px; margin:10px 5px 10px 5px;" class="btn btn-facebook" href="" ng-click="loginOauth('facebook')">
-            <i class="fa fa-facebook"></i> Connect with Facebook
-          </a>
-          <a style="width:200px; margin:10px 5px 10px 5px;" class="btn btn-google-plus" href="" ng-click="loginOauth('google')">
-            <i class="fa fa-google-plus"></i> Connect with Google+
-          </a>
-          <a style="width:200px; margin:10px 5px 10px 5px;" class="btn btn-twitter" href="" ng-click="loginOauth('twitter')">
-            <i class="fa fa-twitter"></i> Connect with Twitter
-          </a>
-      </div>
+    <div class="container">
+    <auth></auth>
     </div>
   </div>
 </header>
