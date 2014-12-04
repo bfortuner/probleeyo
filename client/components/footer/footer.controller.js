@@ -1,6 +1,6 @@
 'use strict';
 
 angular.module('probleeApp')
-  .controller('FooterCtrl', function ($scope, $location, Auth) {
-    //do something
+  .controller('FooterCtrl', function ($scope) {
+    $scope.email = 'bfortuner@gmail.com';
   });

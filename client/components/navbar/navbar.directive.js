@@ -8,4 +8,4 @@ angular.module('probleeApp')
 	controller: 'NavbarCtrl',
         templateUrl: 'components/navbar/navbar.html'
     };
-})
+});

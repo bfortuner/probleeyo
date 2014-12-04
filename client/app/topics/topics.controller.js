@@ -2,7 +2,7 @@
 
 angular.module('probleeApp')
   .controller('TopicsCtrl', function ($scope) {
-    $scope.topicsBody = [{
+    $scope.topics = [{
       'title': 'Strings',
       'link': '/problems/strings'
     },

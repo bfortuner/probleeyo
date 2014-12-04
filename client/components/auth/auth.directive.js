@@ -8,4 +8,4 @@ angular.module('probleeApp')
 	controller: 'AuthCtrl',
         templateUrl: 'components/auth/auth.html'
     };
-})
+});

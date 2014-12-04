@@ -2,7 +2,7 @@
 
 angular.module('probleeApp')
   .controller('HomeCtrl', function ($scope) {
-        $scope.topics = [{
+        $scope.navTopics = [{
       'title': 'Strings',
       'link': '/problems/strings'
     },

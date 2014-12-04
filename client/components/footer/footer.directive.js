@@ -8,4 +8,4 @@ angular.module('probleeApp')
 	controller: 'FooterCtrl',
         templateUrl: 'components/footer/footer.html'
     };
-})
+});
