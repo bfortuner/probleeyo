@@ -2,9 +2,18 @@
 
 angular.module('probleeApp')
   .controller('NavbarCtrl', function ($scope, $location, Auth) {
-    $scope.menu = [{
-      'title': 'Home',
-      'link': '/'
+
+    $scope.topics = [{
+      'title': 'Strings',
+      'link': '/problems/strings'
+    },
+    {
+      'title': 'Lists',
+      'link': '/problems/lists'
+    },
+    {
+      'title': 'Functions',
+      'link': '/problems/functions'
     }];
 
     $scope.isCollapsed = true;
