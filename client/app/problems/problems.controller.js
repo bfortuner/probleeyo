@@ -1,7 +1,43 @@
 'use strict';
 
 angular.module('probleeApp')
-  .controller('ProblemsCtrl', function ($scope) {
+  .controller('ProblemsCtrl', function ($scope, Problems) {
+
+
+  Problems.getProblems().then(function(d) {
+      $scope.problems = d;
+      console.log(d);
+  }).then( function() {
+
+      $scope.problemId = $scope.problems[0]._id;
+      Problems.getProblem($scope.problemId).then(function(d) {
+        $scope.problem = d;
+        $scope.probTitle = d.title;
+        $scope.probTopic = d.topic;
+        $scope.probDesc = d.description;
+        $scope.probDiff = d.difficulty;
+        $scope.probCode = d.code;
+        $scope.probAuthor = d.author;
+        console.log(d);
+        console.log($scope.probCode);
+      
+        $scope.correctAnswers = getCorrectAnswers($scope.probCode);
+        console.log($scope.correctAnswers);
+        $scope.userAnswers = [];
+
+      });
+    
+    });
+
+  var getCorrectAnswers = function(probCode) {
+      var correctAnswers = probCode.match(/\{\{.+\}\}/g);
+      for (var i=0; i<correctAnswers.length; i++) {
+          correctAnswers[i] = correctAnswers[i].substring(correctAnswers[i].search("{{")+2, correctAnswers[i].search("}}"));
+      }
+      return correctAnswers;
+  }
+
+  //\{\{.+\}\}
 
   $scope.fieldData = [
       [
