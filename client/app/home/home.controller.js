@@ -1,19 +1,9 @@
 'use strict';
 
 angular.module('probleeApp')
-  .controller('HomeCtrl', function ($scope) {
-        $scope.navTopics = [{
-      'title': 'Strings',
-      'link': '/problems/strings'
-    },
-    {
-      'title': 'Lists',
-      'link': '/problems/lists'
-    },
-    {
-      'title': 'Functions',
-      'link': '/problems/functions'
-    }];
-
+  .controller('HomeCtrl', function ($scope, Topics) {
+    Topics.getTopics().then(function(d) {
+      $scope.navTopics = d;
+    })
 
   });

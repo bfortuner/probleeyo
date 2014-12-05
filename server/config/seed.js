@@ -7,6 +7,7 @@
 
 var Thing = require('../api/thing/thing.model');
 var User = require('../api/user/user.model');
+var Topic = require('../api/topic/topic.model');
 
 Thing.find({}).remove(function() {
   Thing.create({
@@ -29,6 +30,41 @@ Thing.find({}).remove(function() {
     info : 'Easily deploy your app to Heroku or Openshift with the heroku and openshift subgenerators'
   });
 });
+
+Topic.find({}).remove(function() {
+  Topic.create({
+    name : 'Strings',
+    description : 'This is a short topic description here.',
+    link : '/problems/strings'
+  },
+  {
+    name : 'Lists',
+    description : 'This is a short topic description here.',
+    link : '/problems/lists'
+  },
+    {
+    name : 'Loops',
+    description : 'This is a short topic description here.',
+    link : '/problems/loops'
+  },
+  {
+    name : 'Functions',
+    description : 'This is a short topic description here.',
+    link : '/problems/functions'
+  },
+  {
+    name : 'Conditionals',
+    description : 'This is a short topic description here.',
+    link : '/problems/conditionals'
+  },
+  {
+    name : 'Recursion',
+    description : 'This is a short topic description here.',
+    link : '/problems/recursion'
+  }
+ );
+});
+
 
 User.find({}).remove(function() {
   User.create({

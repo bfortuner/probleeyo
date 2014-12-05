@@ -1,8 +1,16 @@
 'use strict';
 
 angular.module('probleeApp')
-  .controller('TopicsCtrl', function ($scope) {
-    $scope.topics = [{
+  .controller('TopicsCtrl', function ($scope, Topics) {
+     
+     Topics.getTopics().then(function(d) {
+        $scope.topics = d;
+        console.log(d);
+     })
+
+  });
+
+    /*$scope.topics = [{
       'title': 'Strings',
       'link': '/problems/strings'
     },
@@ -26,6 +34,4 @@ angular.module('probleeApp')
       'title': 'Recursion',
       'link': '/problems/recursion'
     }];
-
-
-  });
+    */

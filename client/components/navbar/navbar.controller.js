@@ -1,20 +1,12 @@
 'use strict';
 
 angular.module('probleeApp')
-  .controller('NavbarCtrl', function ($scope, $location, Auth) {
+  .controller('NavbarCtrl', function ($scope, $location, Auth, Topics) {
 
-    $scope.topics = [{
-      'title': 'Strings',
-      'link': '/problems/strings'
-    },
-    {
-      'title': 'Lists',
-      'link': '/problems/lists'
-    },
-    {
-      'title': 'Functions',
-      'link': '/problems/functions'
-    }];
+    Topics.getTopics().then(function(d) {
+        $scope.topics = d;
+        console.log(d);
+     })
 
     $scope.isCollapsed = true;
     $scope.isLoggedIn = Auth.isLoggedIn;
