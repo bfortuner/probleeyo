@@ -63,4 +63,4 @@ Push Changes
    { upsert: false }
 )
 - mongoexport --db probleeapp-dev --collection topics --out topics.json
-- mongoimport --headerline --type json --host $OPENSHIFT_MONGODB_DB_HOST --port $OPENSHIFT_MONGODB_DB_PORT --db $OPENSHIFT_APP_NAME --collection addresses --username $OPENSHIFT_MONGODB_DB_USERNAME  --password $OPENSHIFT_MONGODB_DB_PASSWORD --file topics.json
+- mongoimport --headerline --type json --host $OPENSHIFT_MONGODB_DB_HOST --port $OPENSHIFT_MONGODB_DB_PORT --db $OPENSHIFT_APP_NAME --collection topics --username $OPENSHIFT_MONGODB_DB_USERNAME  --password $OPENSHIFT_MONGODB_DB_PASSWORD --file topics.json
