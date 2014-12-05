@@ -1,5 +1,5 @@
 #ProbleeYo
-Responsive web app using MeanJS stack. Bootstrapped with Yo generator: https://github.com/DaftMonk/generator-angular-fullstack
+Responsive web app using MeanJS stack. Visits www.problee.com
 
 ##Prerequisites
 - sudo pip install nodeenv (Node virtual env -- super useful!)
