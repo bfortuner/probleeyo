@@ -1,5 +1,5 @@
 #ProbleeYo
-Responsive web app using MeanJS stack. Bootstrapped with Yo generator: https://github.com/DaftMonk/generator-angular-fullstack
+Responsive web app using MeanJS stack. Visits www.problee.com
 
 ##Prerequisites
 - sudo pip install nodeenv (Node virtual env -- super useful!)
@@ -42,6 +42,7 @@ Push Changes
 
 ##Useful commands
 - deactivate_node (exit nodeenv)
+- scp topics.json 5480c06cecb8d4f81e000015@probleeyo-gonavi.rhcloud.com:~/app-root/data/
 
 ##MongoDB Commands
 - mongod (run daemon)
@@ -61,3 +62,5 @@ Push Changes
    },
    { upsert: false }
 )
+- mongoexport --db probleeapp-dev --collection topics --out topics.json
+- mongoimport --headerline --type json --host $OPENSHIFT_MONGODB_DB_HOST --port $OPENSHIFT_MONGODB_DB_PORT --db $OPENSHIFT_APP_NAME --collection topics --username $OPENSHIFT_MONGODB_DB_USERNAME  --password $OPENSHIFT_MONGODB_DB_PASSWORD --file topics.json
