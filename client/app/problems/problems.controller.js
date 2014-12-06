@@ -7,7 +7,7 @@ angular.module('probleeApp')
     console.log("getting next problem");
     Problems.getProblems().then(function(d) {
       $scope.problems = d;
-      console.log(d);
+      //console.log(d);
   }).then( function() {
 
       $scope.problemId = $scope.problems[0]._id;
@@ -20,18 +20,23 @@ angular.module('probleeApp')
         $scope.probDiff = d.difficulty;
         $scope.probAuthor = d.author;
         $scope.probCode = getProbCode(d.code);
-        //$scope.probWordBank = getProbWordBank(d.wordBank);
+        $scope.wordBank = getProbWordBank(d.wordBank);
         $scope.correctAnswers = getCorrectAnswers(d.code);
+        $scope.curAnswerPos = 0;
         //console.log('code'+ $scope.probCode);
         //console.log($scope.probWordBank);
         $scope.userAnswers = getUserAnswers($scope.correctAnswers.length);
-        console.log($scope.correctAnswers);
+        //console.log($scope.correctAnswers);
 
       });
     
     });
 
   };
+
+  $scope.getNextAnswerPos = function() {
+    $scope.curAnswerPos++;
+  }
 
   //initialize first problem
   getNextProblem();
@@ -62,40 +67,61 @@ angular.module('probleeApp')
       }
       return newWordBank;
   };
+  var getProbCode1 = function(probCode) {
+      var codeLines = probCode.split('\n');
+      //console.log(codeLines);
+      var i;
+      for (var i=0; i<codeLines.length; i++) {
+          codeLines[i] = getSubLineArr(codeLines[i]);
+          console.log(codeLines[i]);
+      }
+      //console.log(codeLines);
+      return codeLines;   
+  }
 
+// [0, 1]
+// [0, 1, 2]
   var getProbCode = function(probCode) {
-      var codeDivs = probCode.split('\n');
-      //var i;
-      //for (i=0; i<codeDivs.length; i++) {
-      //    codeDivs[i] = $filter('code_html')(codeDivs[i]);
-      //}
-      return codeDivs;   
+    var codeLines = probCode.split('\n');
+    var lineCount = codeLines.length;
+    var curWildcardIndex = 0;
+    for (var i=0; i<lineCount; i++) {
+      
+      var subLine = codeLines[i].split(/\{\{.+\}\}/);
+      console.log(subLine);
+      //console.log(subLine.length);
+
+      if (subLine.length == 1) {
+        codeLines[i] = subLine;
+      } else {
+        var newSubLine = [];
+        for (var j=0; j<subLine.length; j++) {
+          console.log(newSubLine);
+          if (j % 2 == 0 && j <subLine.length-1) {
+            newSubLine.push(subLine[j]);
+            newSubLine.push("{{W}}" + curWildcardIndex);
+            curWildcardIndex++;
+          } else {
+            newSubLine.push(subLine[j]);
+          }
+        
+        }
+      codeLines[i] = newSubLine;
+      }
+      console.log(codeLines[i]);
+    }
+
+    return codeLines;
+  }
+
+  var replaceWildcards = function(probCode) {
+      return probCode.replace(/\{\{.+\}\}/g, "{{WILDCARD}}");
   }
 
   $scope.getSafeHtmlStr = function(str) {
      console.log("getting safe str");
      return $sce.trustAsHtml(str);
   }
-
-
-$scope.wordBank = [
-      { 'title': 'hello', 'drag': true },
-      { 'title': 'return', 'drag': true },
-      { 'title': 'do while', 'drag': true },
-      { 'title': '===', 'drag': true },
-      { 'title': '"hello"', 'drag': true },
-      { 'title': '+=', 'drag': true },
-      { 'title': 'var foo', 'drag': true },
-      { 'title': 'function()', 'drag': true },
-      { 'title': 'this.foo', 'drag': true },
-    ];
-
-  $scope.infoText = [
-    'Using the variable foo, return the String "Hello"',
-    'This function finds of index of "value" in "table." Drag in the missing part.  \ninput: [4,5,6,7], 6\noutput: 2',
-    'Using the variable foo, return the String "Hello"',
-  ];
-
 
   $scope.popWord = function(index) {
     console.log(index);

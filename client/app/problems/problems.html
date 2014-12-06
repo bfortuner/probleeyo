@@ -13,16 +13,24 @@
 
      <div class="codingArea">
       
-      <section class="container problemCode" id="problem0">
+       <section class="container problemCode" id="problem0">
+        
         <div ng-repeat="line in probCode">
-          <span ng-bind-html="line | code_html"></span>         
-           
-         </div>
-         {{userAnswers}}
-         <div ng-repeat="answer in userAnswers">
-            <answer-field answer="answer" pos="$index"></answer-field>
+            
+          <span ng-repeat="str in line">
+              
+              <span ng-if="str.substring(0,5) != '\{\{W\}\}'" ng-bind-html="str | code_html"></span>
+              
+              <answer-field ng-if="str.substring(0,5) == '\{\{W\}\}'" 
+                answer="userAnswers[str.substring(5)]" 
+                pos="str.substring(5)">
+              </answer-field>
+
+          </span>
+        
         </div>
-      </section>
+
+       </section>
       
     </div>
 
