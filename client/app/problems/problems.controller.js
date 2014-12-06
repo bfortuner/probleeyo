@@ -3,31 +3,22 @@
 angular.module('probleeApp')
   .controller('ProblemsCtrl', function ($scope, $sce, $filter, Problems) {
 
+
+   /* --------- Initialize Problem -------- */
+
   $scope.getNextProblem = function() {
-    console.log("getting next problem: " + $scope.currentProblemNum);
     Problems.getProblems().then(function(d) {
       $scope.problems = d;
-      //console.log(d);
-  }).then( function() {
-      $scope.problemId = getNextProblemId();
+      $scope.probId = getNextProblemId();
+    }).then( function() {
 
-      Problems.getProblem($scope.problemId).then(function(d) {
-        $scope.probStatus = 'pending';
-        $scope.problem = d;
-        $scope.probTitle = d.title;
-        $scope.probTopic = d.topic;
-        $scope.probDesc = d.description;
-        $scope.probDiff = d.difficulty;
-        $scope.probAuthor = d.author;
-        $scope.probCodeLines = getProbCodeLines(d.code);
-        $scope.wordBank = getProbWordBank(d.wordBank);
+      Problems.getProblem($scope.probId).then(function(d) {
+        $scope.prob = d;
+        $scope.prob.status = 'pending';
+        $scope.prob.wordBank = getWordBank(d.wordBank);
+        $scope.prob.codeLines = getProbCodeLines(d.code);
         $scope.correctAnswers = getCorrectAnswers(d.code);
-        $scope.curAnswerPos = 0;
-        //console.log('code'+ $scope.probCode);
-        //console.log($scope.probWordBank);
         $scope.userAnswers = getUserAnswers($scope.correctAnswers.length);
-        //console.log($scope.correctAnswers);
-
       });
     
     });
@@ -37,6 +28,7 @@ angular.module('probleeApp')
   //load first problem
   $scope.getNextProblem();
   $scope.currentProblemNum = 0;
+
   var getNextProblemId = function() {
     var id = $scope.problems[$scope.currentProblemNum]._id;
     if ($scope.currentProblemNum >= $scope.problems.length-1) {
@@ -47,14 +39,23 @@ angular.module('probleeApp')
     return id;
   }
 
+  var getWordBank = function(wordBank) {
+      var newWordBank = [];
+      var word;
+      for (word in wordBank) {
+        newWordBank.push({ 'title': wordBank[word], 'drag': true });
+      }
+      return newWordBank;
+  };
+
   var getCorrectAnswers = function(probCodeStr) {
       var correctAnswers = probCodeStr.match(/\{\{.+\}\}/g);
       for (var i=0; i<correctAnswers.length; i++) {
-          correctAnswers[i] = correctAnswers[i].substring(correctAnswers[i].search('{{')+2, correctAnswers[i].search('}}'));
+          correctAnswers[i] = correctAnswers[i].substring(correctAnswers[i].search('{{')+2, 
+            correctAnswers[i].search('}}'));
       }
       return correctAnswers;
   };
-
 
   var getUserAnswers = function(count) {
     var answers = [];
@@ -65,15 +66,6 @@ angular.module('probleeApp')
     }
     return answers;
   }  
-
-  var getProbWordBank = function(wordBank) {
-      var newWordBank = [];
-      var word;
-      for (word in wordBank) {
-        newWordBank.push({ 'title': wordBank[word], 'drag': true });
-      }
-      return newWordBank;
-  };
 
   var getProbCodeLines = function(probCodeStr) {
     var codeLines = probCodeStr.split('\n');
@@ -88,7 +80,6 @@ angular.module('probleeApp')
       } else {
         var newSubLine = [];
         for (var j=0; j<subLine.length; j++) {
-          console.log(newSubLine);
           if (j % 2 == 0 && j <subLine.length-1) {
             newSubLine.push(subLine[j]);
             newSubLine.push("{{W}}" + curWildcardIndex);
@@ -106,22 +97,20 @@ angular.module('probleeApp')
     return codeLines;
   }
 
-  $scope.getSafeHtmlStr = function(str) {
-     console.log("getting safe str");
-     return $sce.trustAsHtml(str);
-  }
+
+
+
+
+  /* -------- Handle User Actions --------- */
 
   $scope.popWord = function(index) {
     var val = $scope.userAnswers[index].pop();
-    $scope.wordBank.push(val);
+    $scope.prob.wordBank.push(val);
   };
 
-  $scope.problemComplete = false;
-
-  $scope.submitAnswer = function(){
+  $scope.submitCode = function(){
      if(checkAnswer()) {
-        $scope.problemComplete = true;
-        $scope.probStatus = 'solved';
+        $scope.prob.status = 'solved';
         $('.alert').show().removeClass('alert-danger').addClass('alert-success').text('Good Job');
         $scope.getNextProblem();
       } else {
@@ -129,10 +118,24 @@ angular.module('probleeApp')
       }
       setTimeout(function(){
         $('.alert').fadeOut();
-      }, 3000);
+      }, 2500);
   };
 
-  var checkAnswer = function(){
+  var checkAnswer = function() {
+    for (var i=0; i < $scope.correctAnswers.length; i++) {
+      console.log($scope.correctAnswers[i]);
+      if ($scope.userAnswers[i][0] == null) {
+        console.log("found null!");
+        return false;    
+      } else if ($scope.correctAnswers[i] != $scope.userAnswers[i][0].title) {
+        console.log($scope.userAnswers[i][0].title);
+        return false; 
+      }
+    }
+    return true;
+  };
+
+  var checkAnswer1 = function() {
     $('.field').removeClass('has-error');
     var allCorrect = true;
     for(var i = 0; $scope.userAnswers[i]; i++){
@@ -146,18 +149,5 @@ angular.module('probleeApp')
     return allCorrect;
   };
 
-  $scope.problemIndex = 0;
 
-
-  $scope.showProblem = function(problemNum){
-    $('.problemCode').hide();
-    $('#problem' + problemNum).show();
-    $scope.probWordBank = $scope.probWordBank[problemNum];
-  };
-
-  $('.alert').on('click', function(){
-    $(this).hide();
-  });
-
-
-  });
+}); //end of controller

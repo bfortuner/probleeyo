@@ -1,22 +1,21 @@
 <nav-bar></nav-bar>
 
       <div class="alert">
-       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+       <button  class="close" type="button"data-dismiss="alert" aria-hidden="true">&times;</button>
        Incorrect! Check the highlighted areas.
      </div>
 
      <div class="problemDesc">
        <div class="container"
-         <p id="info-text">{{probDesc}}</p>
+         <p id="info-text">{{prob.description}}</p>
        </div>
      </div>
 
      <div class="codingArea">
       
-       <section class="container problemCode" id="problem0">
+       <section class="container problemCode problem">
         
-        <div ng-repeat="line in probCodeLines">
-            
+        <div ng-repeat="line in prob.codeLines">
           <span ng-repeat="str in line">
               
               <span ng-if="str.substring(0,5) != '\{\{W\}\}'" ng-bind-html="str | code_html"></span>
@@ -34,11 +33,10 @@
       
     </div>
 
-
   <div class="container">
     <div class="wordBank">
-      <div data-drop="true" ng-model='wordBank' data-jqyoui-options="{accept:'.btn-draggable:not([ng-model=wordBank])'}" jqyoui-droppable="{multiple:true}">
-        <div class="btn btn-info btn-lg btn-draggable" ng-repeat="item in wordBank" ng-show="item.title" data-drag="{{item.drag}}" data-jqyoui-options="{revert: 'invalid'}" ng-model="wordBank" jqyoui-draggable="{index: {{$index}},animate:true}">{{item.title}}</div>
+      <div data-drop="true" ng-model='prob.wordBank' data-jqyoui-options="{accept:'.btn-draggable:not([ng-model=prob.wordBank])'}" jqyoui-droppable="{multiple:true}">
+        <div class="btn btn-info btn-lg btn-draggable" ng-repeat="item in prob.wordBank" ng-show="item.title" data-drag="{{item.drag}}" data-jqyoui-options="{revert: 'invalid'}" ng-model="prob.wordBank" jqyoui-draggable="{index: {{$index}},animate:true}">{{item.title}}</div>
       </div>
     </div>
   </div>
@@ -47,8 +45,8 @@
 
 <div class="container">
   <div class="row">
-    <div ng-show="probStatus != 'solved'" class="col-xs-8 btn btn-xl btn-success" ng-click="submitAnswer()">Run</div>
-    <div ng-show="probStatus != 'solved'" class="col-xs-4 btn btn-xl btn-default" ng-click="getNextProblem()">Skip</div>
-    <div ng-show="probStatus == 'solved'" class="col-xs-12 btn btn-xl btn-success" ng-click="getNextProblem()">Continue</div>
+    <div ng-show="prob.status != 'solved'" class="col-xs-8 btn btn-xl btn-success" ng-click="submitCode()">Run</div>
+    <div ng-show="prob.status != 'solved'" class="col-xs-4 btn btn-xl btn-default" ng-click="getNextProblem()">Skip</div>
+    <div ng-show="prob.status == 'solved'" class="col-xs-12 btn btn-xl btn-success" ng-click="getNextProblem()">Continue</div>
   </div>
 </div>

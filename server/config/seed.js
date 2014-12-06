@@ -14,6 +14,7 @@ Problem.find({}).remove(function() {
     title: 'Hello String',
     topic: 'Strings',
     difficulty: 1,
+    author: "admin",
     description: "Using the variable foo, return the String 'Hello'",
     code: 'var sayHello = function(var1) { \n\tvar foo = {{\'hello\'}} ;\n\t{{return}} foo ;\n}',
     wordBank: [
@@ -31,6 +32,7 @@ Problem.find({}).remove(function() {
     title: 'Table Find Element',
     topic: 'Strings',
     difficulty: 1,
+    author: "admin",
     description: 'Find index of "value" in "table." Drag in the missing part.  \ninput: [4,5,6,7], 6\noutput: 2',
     code: 'function search(table, value) {\n\tvar i = 0;\n\twhile (i < {{table.length}}) {\n\t\tif (table[i] === value) {\n\t\treturn i;\n\t}\n\ti++;\n\t}\n}',
     wordBank: [
