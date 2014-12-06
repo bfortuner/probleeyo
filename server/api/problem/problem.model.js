@@ -10,8 +10,7 @@ var ProblemSchema = new Schema({
   description: String,
   code: String,
   wordBank: Array,
-  author: String,
-  created: { type: Date, default: Date.now }
+  author: String
 });
 
 module.exports = mongoose.model('Problem', ProblemSchema);

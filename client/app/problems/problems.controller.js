@@ -37,7 +37,7 @@ angular.module('probleeApp')
         $scope.currentProblemNum++;
     }
     return id;
-  }
+  };
 
   var getWordBank = function(wordBank) {
       var newWordBank = [];
@@ -65,7 +65,7 @@ angular.module('probleeApp')
       i++;
     }
     return answers;
-  }  
+  };  
 
   var getProbCodeLines = function(probCodeStr) {
     var codeLines = probCodeStr.split('\n');
@@ -73,16 +73,16 @@ angular.module('probleeApp')
     var curWildcardIndex = 0;
     for (var i=0; i<lineCount; i++) {
       
-      var subLine = codeLines[i].split(/\{\{.+\}\}/);;
+      var subLine = codeLines[i].split(/\{\{.+\}\}/);
 
-      if (subLine.length == 1) {
+      if (subLine.length === 1) {
         codeLines[i] = subLine;
       } else {
         var newSubLine = [];
         for (var j=0; j<subLine.length; j++) {
-          if (j % 2 == 0 && j <subLine.length-1) {
+          if (j % 2 === 0 && j <subLine.length-1) {
             newSubLine.push(subLine[j]);
-            newSubLine.push("{{W}}" + curWildcardIndex);
+            newSubLine.push('{{W}}' + curWildcardIndex);
             curWildcardIndex++;
           } else {
             newSubLine.push(subLine[j]);
@@ -95,7 +95,7 @@ angular.module('probleeApp')
     }
 
     return codeLines;
-  }
+  };
 
 
 
@@ -112,7 +112,6 @@ angular.module('probleeApp')
      if(checkAnswer()) {
         $scope.prob.status = 'solved';
         $('.alert').show().removeClass('alert-danger').addClass('alert-success').text('Good Job');
-        $scope.getNextProblem();
       } else {
         $('.alert').show().removeClass('alert-success').addClass('alert-danger').text('Incorrect! Check the test cases for clues as to what went wrong.');
       }
@@ -123,31 +122,16 @@ angular.module('probleeApp')
 
   var checkAnswer = function() {
     for (var i=0; i < $scope.correctAnswers.length; i++) {
-      console.log($scope.correctAnswers[i]);
-      if ($scope.userAnswers[i][0] == null) {
-        console.log("found null!");
+      if ($scope.userAnswers[i][0] === null) {
         return false;    
-      } else if ($scope.correctAnswers[i] != $scope.userAnswers[i][0].title) {
-        console.log($scope.userAnswers[i][0].title);
+      } else if ($scope.correctAnswers[i] !== $scope.userAnswers[i][0].title) {
         return false; 
       }
     }
     return true;
   };
 
-  var checkAnswer1 = function() {
-    $('.field').removeClass('has-error');
-    var allCorrect = true;
-    for(var i = 0; $scope.userAnswers[i]; i++){
-      if(!$scope.userAnswers[i].submitted[0] ||
-        ($scope.userAnswers[i].submitted[0].title !== $scope.userAnswers[i].correct)) {
 
-        allCorrect = false;
-        $('.field'+i).addClass('has-error');
-      }
-    }
-    return allCorrect;
-  };
 
 
 }); //end of controller

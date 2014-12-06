@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('probleeApp')
-  .filter('code_html', function($sce, $interpolate) {
+  .filter('code_html', function($sce) {
     return function (text) {
     	text = text.replace(/\t/g, '&nbsp;&nbsp;&nbsp;&nbsp;');
     	//text = $interpolate("{{}}")
