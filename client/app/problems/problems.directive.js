@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('probleeApp')
-  .directive('probCode', function() {
+  .directive('answerField', function() {
       return {
           restrict: 'E',
           scope: {
@@ -11,4 +11,15 @@ angular.module('probleeApp')
           controller: 'ProblemsCtrl',
           templateUrl: 'app/problems/answerField.html',     
       };
-  });
+  })
+  .directive('wordBank', function() {
+      return {
+          restrict: 'E',
+          scope: {
+            wordbank: '=',
+          },
+          controller: 'ProblemsCtrl',
+          templateUrl: 'app/problems/wordBank.html',     
+      };
+  })
+

@@ -12,6 +12,7 @@
      </div>
 
      <div class="codingArea">
+      
       <section class="container problemCode" id="problem0">
         <div ng-repeat="line in probCode">
           <span ng-bind-html="line | code_html"></span>         
@@ -19,74 +20,10 @@
          </div>
          {{userAnswers}}
          <div ng-repeat="answer in userAnswers">
-            <prob-code answer="answer" pos="$index"></prob-code>
-         <!--<div class="field field0" data-drop="true" ng-model="userAnswers[$index]" jqyoui-droppable="{index: 0}" ng-click="popWord($index)">
-            <div class="btn btn-info btn-draggable" ng-show="userAnswers[$index][0].title" data-drag="{{userAnswers[$index][0].drag}}" data-jqyoui-options="{revert: 'invalid'}" ng-model="userAnswers[$index]" jqyoui-draggable="{index: 0, placeholder:true,animate:true}">{{userAnswers[$index][0].title}}
-            </div>-->
-        </div>  
+            <answer-field answer="answer" pos="$index"></answer-field>
         </div>
       </section>
-<!--
-      <section class="container problemCode" id="problem0">
-        <div class="line"><span class="codeHighlight">function</span>  sayHello( )  {</div>
-        <div class="line">var foo =
-          <div class="field field0" data-drop="true" ng-model="userAnswers[0]['submitted']" jqyoui-droppable="{index: 0}" ng-click="popWord(0)">
-            <div class="btn btn-info btn-draggable" ng-repeat="item in userAnswers[0]['submitted']" ng-show="item.title" data-drag="{{item.drag}}" data-jqyoui-options="{revert: 'invalid'}" ng-model="userAnswers[0]['submitted']" jqyoui-draggable="{index: {{$index}},placeholder:true,animate:true}">{{item.title}}
-            </div>
-          </div>;
-        </div>
-        <div class="line">
-          <div class="field field1" data-drop="true" ng-model="userAnswers[1]['submitted']" jqyoui-droppable="{index: 0}" ng-click="popWord(1)">
-            <div class="btn btn-info btn-draggable" ng-repeat="item in userAnswers[1]['submitted']" ng-show="item.title" data-drag="{{item.drag}}" data-jqyoui-options="{revert: 'invalid'}" ng-model="userAnswers[1]['submitted']" jqyoui-draggable="{index: {{$index}},placeholder:true,animate:true}">
-              {{item.title}}
-            </div>
-          </div> foo;
-        </div>
-        <div class="line">}</div>
-      </section>
--->
-      <section class="container problemCode" id="problem1">
-        <div class="line"><span class="codeHighlight">function</span>  search(table, value)  {</div>
-        <div class="line">var i = 0;</div>
-        <div class="line">while (i <
-          <div class="field field0" data-drop="true" ng-model="userAnswers[0]['submitted']" jqyoui-droppable="{index: 0}" ng-click="popWord(0)">
-            <div class="btn btn-info btn-draggable" ng-repeat="item in userAnswers[0]['submitted']" ng-show="item.title" data-drag="{{item.drag}}" data-jqyoui-options="{revert: 'invalid'}" ng-model="userAnswers[0]['submitted']" jqyoui-draggable="{index: {{$index}},placeholder:true,animate:true}">{{item.title}}
-            </div>
-          </div>) {
-        </div>
-        <div class="line2">if (table[i] === value) {</div>
-        <div class="line3">return i;</div>
-        <div class="line2">}</div>
-        <div class="line2">i++;</div>
-        <div class="line">}</div>
-        <div class="line">}</div>
-      </section>
-
-      <section class="container problemCode" id="problem2">
-        <div class="line"><span class="codeHighlight">function</span>  sayHello( )  {</div>
-        <div class="line">
-          <div class="field field0" data-drop="true" ng-model="userAnswers[0]['submitted']" jqyoui-droppable="{index: 0}" ng-click="popWord(0)">
-            <div class="btn btn-info btn-draggable" ng-repeat="item in userAnswers[0]['submitted']" ng-show="item.title" data-drag="{{item.drag}}" data-jqyoui-options="{revert: 'invalid'}" ng-model="userAnswers[0]['submitted']" jqyoui-draggable="{index: {{$index}},placeholder:true,animate:true}">{{item.title}}
-            </div>
-          </div>
-          <div class="field field1" data-drop="true" ng-model="userAnswers[1]['submitted']" jqyoui-droppable="{index: 0}" ng-click="popWord(1)">
-            <div class="btn btn-info btn-draggable" ng-repeat="item in userAnswers[1]['submitted']" ng-show="item.title" data-drag="{{item.drag}}" data-jqyoui-options="{revert: 'invalid'}" ng-model="userAnswers[1]['submitted']" jqyoui-draggable="{index: {{$index}},placeholder:true,animate:true}">{{item.title}}
-            </div>
-          </div> =
-          <div class="field field2" data-drop="true" ng-model="userAnswers[2]['submitted']" jqyoui-droppable="{index: 0}" ng-click="popWord(2)">
-            <div class="btn btn-info btn-draggable" ng-repeat="item in userAnswers[2]['submitted']" ng-show="item.title" data-drag="{{item.drag}}" data-jqyoui-options="{revert: 'invalid'}" ng-model="userAnswers[2]['submitted']" jqyoui-draggable="{index: {{$index}},placeholder:true,animate:true}">{{item.title}}
-            </div>
-          </div>;
-        </div>
-        <div class="line">
-          <div class="field field3" data-drop="true" ng-model="userAnswers[3]['submitted']" jqyoui-droppable="{index: 0}" ng-click="popWord(3)">
-            <div class="btn btn-info btn-draggable" ng-repeat="item in userAnswers[3]['submitted']" ng-show="item.title" data-drag="{{item.drag}}" data-jqyoui-options="{revert: 'invalid'}" ng-model="userAnswers[3]['submitted']" jqyoui-draggable="{index: {{$index}},placeholder:true,animate:true}">
-              {{item.title}}
-            </div>
-          </div> foo;
-        </div>
-        <div class="line">}</div>
-      </section>
+      
     </div>
 
 
@@ -101,9 +38,9 @@
   <hr>
 
 <div class="container">
-<div class="row">
-   <div ng-hide="probStatus == 'solved'" class="col-xs-8 btn btn-xl btn-success" ng-click="submitAnswer()">Run</div>
-   <div ng-hide="probStatus == 'solved'" class="col-xs-4 btn btn-xl btn-default" ng-click="showNextProblem()">Skip</div>
-   <div ng-show="probStatus == 'solved'" class="col-xs-12 btn btn-xl btn-success" ng-click="showNextProblem()">Continue</div>
-</div>
+  <div class="row">
+    <div ng-hide="probStatus == 'solved'" class="col-xs-8 btn btn-xl btn-success" ng-click="submitAnswer()">Run</div>
+    <div ng-hide="probStatus == 'solved'" class="col-xs-4 btn btn-xl btn-default" ng-click="showNextProblem()">Skip</div>
+    <div ng-show="probStatus == 'solved'" class="col-xs-12 btn btn-xl btn-success" ng-click="showNextProblem()">Continue</div>
+  </div>
 </div>
