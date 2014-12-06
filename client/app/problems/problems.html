@@ -15,7 +15,7 @@
       
        <section class="container problemCode" id="problem0">
         
-        <div ng-repeat="line in probCode">
+        <div ng-repeat="line in probCodeLines">
             
           <span ng-repeat="str in line">
               
@@ -47,8 +47,8 @@
 
 <div class="container">
   <div class="row">
-    <div ng-hide="probStatus == 'solved'" class="col-xs-8 btn btn-xl btn-success" ng-click="submitAnswer()">Run</div>
-    <div ng-hide="probStatus == 'solved'" class="col-xs-4 btn btn-xl btn-default" ng-click="showNextProblem()">Skip</div>
-    <div ng-show="probStatus == 'solved'" class="col-xs-12 btn btn-xl btn-success" ng-click="showNextProblem()">Continue</div>
+    <div ng-show="probStatus != 'solved'" class="col-xs-8 btn btn-xl btn-success" ng-click="submitAnswer()">Run</div>
+    <div ng-show="probStatus != 'solved'" class="col-xs-4 btn btn-xl btn-default" ng-click="getNextProblem()">Skip</div>
+    <div ng-show="probStatus == 'solved'" class="col-xs-12 btn btn-xl btn-success" ng-click="getNextProblem()">Continue</div>
   </div>
 </div>

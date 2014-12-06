@@ -28,29 +28,18 @@ Problem.find({}).remove(function() {
     ]
   },
   {
-    title: 'My Problem Title',
+    title: 'Table Find Element',
     topic: 'Strings',
-    difficulty: 3,
-    description: "Return the string 'hello'",
-    code: 'var myfunc = function(var1) { \n\tvar foo = {{ANSWER1}} ; \n\treturn {{ANSWER2}} ;\n}',
+    difficulty: 1,
+    description: 'Find index of "value" in "table." Drag in the missing part.  \ninput: [4,5,6,7], 6\noutput: 2',
+    code: 'function search(table, value) {\n\tvar i = 0;\n\twhile (i < {{table.length}}) {\n\t\tif (table[i] === value) {\n\t\treturn i;\n\t}\n\ti++;\n\t}\n}',
     wordBank: [
-        "'hello'",
-        'hello',
-        'foo',
-        'for'
-    ]
-  },
-  {
-    title: 'My Problem Title',
-    topic: 'Strings',
-    difficulty: 3,
-    description: "Return the string 'hello'",
-    code: 'var myfunc = function(var1) { \n\tvar foo = {{ANSWER1}} ; \n\treturn {{ANSWER2}} ;\n}',
-    wordBank: [
-        "'hello'",
-        'hello',
-        'foo',
-        'for'
+        'value2',
+        'table',
+        'table.length',
+        'i',
+        '10',
+        'this'
     ]
   });
 });
