@@ -6,7 +6,7 @@ angular.module('probleeApp')
     Topics.getTopics().then(function(d) {
         $scope.topics = d;
         console.log(d);
-     })
+     });
 
     $scope.isCollapsed = true;
     $scope.isLoggedIn = Auth.isLoggedIn;

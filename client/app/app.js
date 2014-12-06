@@ -6,7 +6,8 @@ angular.module('probleeApp', [
   'ngSanitize',
   'ngRoute',
   'ui.bootstrap',
-  'ngDragDrop'
+  'ngDragDrop',
+  'ngSanitize'
 ])
   .config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider

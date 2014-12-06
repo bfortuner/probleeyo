@@ -14,5 +14,5 @@ angular.module('probleeApp')
       .when('/problems/:topic/:id', {
         templateUrl: 'app/problems/problems.html',
         controller: 'ProblemsCtrl'
-      })
+      });
   });

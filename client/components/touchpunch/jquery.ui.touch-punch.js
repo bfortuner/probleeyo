@@ -1,3 +1,4 @@
+'use strict';
 /*!
  * jQuery UI Touch Punch 0.2.3
  *

@@ -5,7 +5,7 @@ angular.module('probleeApp')
     // AngularJS will instantiate a singleton by calling "new" on this function
        return {
 	   getTopics: function() {
-	     var url = "/api/topics"
+	     var url = '/api/topics';
 	     var promise = $http.get(url).then(function (response) {
 		 return response.data;
 	     });

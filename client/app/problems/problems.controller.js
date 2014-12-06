@@ -1,75 +1,85 @@
 'use strict';
 
 angular.module('probleeApp')
-  .controller('ProblemsCtrl', function ($scope, Problems) {
+  .controller('ProblemsCtrl', function ($scope, $sce, $filter, Problems) {
 
-
-  Problems.getProblems().then(function(d) {
+  var getNextProblem = function() {
+    console.log("getting next problem");
+    Problems.getProblems().then(function(d) {
       $scope.problems = d;
       console.log(d);
   }).then( function() {
 
       $scope.problemId = $scope.problems[0]._id;
       Problems.getProblem($scope.problemId).then(function(d) {
+        $scope.probStatus = 'pending';
         $scope.problem = d;
         $scope.probTitle = d.title;
         $scope.probTopic = d.topic;
         $scope.probDesc = d.description;
         $scope.probDiff = d.difficulty;
-        $scope.probCode = d.code;
         $scope.probAuthor = d.author;
-        console.log(d);
-        console.log($scope.probCode);
-      
-        $scope.correctAnswers = getCorrectAnswers($scope.probCode);
+        $scope.probCode = getProbCode(d.code);
+        //$scope.probWordBank = getProbWordBank(d.wordBank);
+        $scope.correctAnswers = getCorrectAnswers(d.code);
+        //console.log('code'+ $scope.probCode);
+        //console.log($scope.probWordBank);
+        $scope.userAnswers = getUserAnswers($scope.correctAnswers.length);
         console.log($scope.correctAnswers);
-        $scope.userAnswers = [];
 
       });
     
     });
 
+  };
+
+  //initialize first problem
+  getNextProblem();
+
   var getCorrectAnswers = function(probCode) {
       var correctAnswers = probCode.match(/\{\{.+\}\}/g);
       for (var i=0; i<correctAnswers.length; i++) {
-          correctAnswers[i] = correctAnswers[i].substring(correctAnswers[i].search("{{")+2, correctAnswers[i].search("}}"));
+          correctAnswers[i] = correctAnswers[i].substring(correctAnswers[i].search('{{')+2, correctAnswers[i].search('}}'));
       }
       return correctAnswers;
+  };
+
+
+  var getUserAnswers = function(count) {
+    var answers = [];
+    var i = 0;
+    while (i<count) {
+      answers.push([]);
+      i++;
+    }
+    return answers;
+  }  
+
+  var getProbWordBank = function(wordBank) {
+      var newWordBank = [];
+      var word;
+      for (word in wordBank) {
+        newWordBank.push({ 'title': wordBank[word], 'drag': true });
+      }
+      return newWordBank;
+  };
+
+  var getProbCode = function(probCode) {
+      var codeDivs = probCode.split('\n');
+      //var i;
+      //for (i=0; i<codeDivs.length; i++) {
+      //    codeDivs[i] = $filter('code_html')(codeDivs[i]);
+      //}
+      return codeDivs;   
   }
 
-  //\{\{.+\}\}
+  $scope.getSafeHtmlStr = function(str) {
+     console.log("getting safe str");
+     return $sce.trustAsHtml(str);
+  }
 
-  $scope.fieldData = [
-      [
-      {'submitted':[],
-      'correct':'"hello"' },
-      {'submitted':[],
-      'correct':'return' }
-      ],
 
-      [
-      {'submitted':[],
-      'correct':'table.length' }
-      ],
-
-      [
-      {'submitted':[],
-      'correct':'var' },
-      {'submitted':[],
-      'correct':'foo' },
-      {'submitted':[],
-      'correct':'"hello"' },
-      {'submitted':[],
-      'correct':'return' }
-      ],
-  ];
-  $scope.infoText = [
-    'Using the variable foo, return the String "Hello"',
-    'This function finds of index of "value" in "table." Drag in the missing part.  \ninput: [4,5,6,7], 6\noutput: 2',
-    'Using the variable foo, return the String "Hello"',
-  ];
-  $scope.wordBankData = [
-    [
+$scope.wordBank = [
       { 'title': 'hello', 'drag': true },
       { 'title': 'return', 'drag': true },
       { 'title': 'do while', 'drag': true },
@@ -79,37 +89,23 @@ angular.module('probleeApp')
       { 'title': 'var foo', 'drag': true },
       { 'title': 'function()', 'drag': true },
       { 'title': 'this.foo', 'drag': true },
-    ],
-    [
-      { 'title': 'value2', 'drag': true },
-      { 'title': 'table', 'drag': true },
-      { 'title': 'table.length', 'drag': true },
-      { 'title': 'value', 'drag': true },
-      { 'title': 'i', 'drag': true },
-      { 'title': '10', 'drag': true },
-      { 'title': 'this', 'drag': true },
-    ],
-    [
-      { 'title': 'return', 'drag': true },
-      { 'title': 'var', 'drag': true },
-      { 'title': 'foo', 'drag': true },
-      { 'title': 'this', 'drag': true },
-      { 'title': '"hello"', 'drag': true },
-      { 'title': '"hello"', 'drag': true },
-      { 'title': 'function()', 'drag': true },
-      { 'title': 'hello', 'drag': true },
-      { 'title': 'this.foo', 'drag': true },
-    ]
+    ];
+
+  $scope.infoText = [
+    'Using the variable foo, return the String "Hello"',
+    'This function finds of index of "value" in "table." Drag in the missing part.  \ninput: [4,5,6,7], 6\noutput: 2',
+    'Using the variable foo, return the String "Hello"',
   ];
 
-  $scope.problemIndex = 0;
-
-  $scope.answerFields = $scope.fieldData[$scope.problemIndex];
-  $scope.wordBank = $scope.wordBankData[$scope.problemIndex];
 
   $scope.popWord = function(index) {
-    var val = $scope.answerFields[index].submitted.pop();
+    console.log(index);
+    console.log($scope.userAnswers);
+    console.log($scope.userAnswers[index]);
+    var val = $scope.userAnswers[index].pop();
+    console.log(val);
     $scope.wordBank.push(val);
+    console.log($scope.wordBank);
   };
 
   $scope.problemComplete = false;
@@ -120,6 +116,7 @@ angular.module('probleeApp')
     } else {
       if(checkAnswer()) {
         $scope.problemComplete = true;
+        $scope.probStatus = 'solved';
         $('.alert').show().removeClass('alert-danger').addClass('alert-success').text('Good Job');
         $('#submit').text('Next Problem');
         $('#skip').hide();
@@ -135,9 +132,9 @@ angular.module('probleeApp')
   var checkAnswer = function(){
     $('.field').removeClass('has-error');
     var allCorrect = true;
-    for(var i = 0; $scope.answerFields[i]; i++){
-      if(!$scope.answerFields[i].submitted[0] ||
-        ($scope.answerFields[i].submitted[0].title !== $scope.answerFields[i].correct)) {
+    for(var i = 0; $scope.userAnswers[i]; i++){
+      if(!$scope.userAnswers[i].submitted[0] ||
+        ($scope.userAnswers[i].submitted[0].title !== $scope.userAnswers[i].correct)) {
 
         allCorrect = false;
         $('.field'+i).addClass('has-error');
@@ -145,6 +142,8 @@ angular.module('probleeApp')
     }
     return allCorrect;
   };
+
+  $scope.problemIndex = 0;
 
   $scope.showNextProblem = function(){
     $('#submit').text('Submit');
@@ -162,8 +161,7 @@ angular.module('probleeApp')
   $scope.showProblem = function(problemNum){
     $('.problemCode').hide();
     $('#problem' + problemNum).show();
-    $scope.answerFields = $scope.fieldData[problemNum];
-    $scope.wordBank = $scope.wordBankData[problemNum];
+    $scope.probWordBank = $scope.probWordBank[problemNum];
   };
 
   $('.alert').on('click', function(){

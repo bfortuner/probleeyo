@@ -44,6 +44,10 @@
   padding:15px 5px 15px 5px;
 }
 
+.codeLine {
+  margin-left: 1em;
+}
+
 .line {
   margin-left: 1em;
 }
