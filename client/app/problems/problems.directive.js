@@ -5,9 +5,8 @@ angular.module('probleeApp')
       return {
           restrict: 'E',
           scope: {
-              ngModel: '=',
               pos: '=',
-              prob: '=',
+              answer: '=',
           },
           controller: 'ProblemsCtrl',
           templateUrl: 'app/problems/answerField.html',     

@@ -35,7 +35,6 @@ angular.module('probleeApp')
 
   //initialize first problem
   getNextProblem();
-
   var getCorrectAnswers = function(probCode) {
       var correctAnswers = probCode.match(/\{\{.+\}\}/g);
       for (var i=0; i<correctAnswers.length; i++) {
