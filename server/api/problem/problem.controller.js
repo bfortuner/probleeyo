@@ -4,8 +4,21 @@ var _ = require('lodash');
 var Problem = require('./problem.model');
 
 // Get list of problems
+// default: sort by difficulty ascending
 exports.index = function(req, res) {
-  Problem.find(function (err, problems) {
+  Problem.find(null, null, {sort: { difficulty: 1 } }, function (err, problems) {
+    if(err) { return handleError(res, err); }
+    return res.json(200, problems);
+  });
+};
+
+// Get list of problems by TOPIC
+// default: sort by difficulty ascending
+exports.topic = function(req, res) {
+  Problem.find({topic:   //findOne
+    { $regex: new RegExp("^" + req.params.topic.toLowerCase(), "i") } },
+    null,
+    {sort: { difficulty: 1 } }, function (err, problems) {
     if(err) { return handleError(res, err); }
     return res.json(200, problems);
   });

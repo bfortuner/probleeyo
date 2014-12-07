@@ -120,9 +120,9 @@ angular.module('probleeApp')
       }, 2500);
   };
 
-  var checkAnswer = function() {
+  var checkAnswer = function() {  
     for (var i=0; i < $scope.correctAnswers.length; i++) {
-      if ($scope.userAnswers[i][0] === null) {
+      if ($scope.userAnswers[i].length === 0 || !$scope.userAnswers[i][0]) {
         return false;    
       } else if ($scope.correctAnswers[i] !== $scope.userAnswers[i][0].title) {
         return false; 

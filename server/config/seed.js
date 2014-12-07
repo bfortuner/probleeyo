@@ -16,7 +16,7 @@ Problem.find({}).remove(function() {
     difficulty: 1,
     author: "admin",
     description: "Using the variable foo, return the String 'Hello'",
-    code: 'var sayHello = function(var1) { \n\tvar foo = {{\'hello\'}} ;\n\t{{return}} foo ;\n}',
+    code: 'var sayHello = function() { \n\tvar foo = {{\'hello\'}} ;\n\t{{return}} foo ;\n}',
     wordBank: [
         "'hello'",
         'hello',
@@ -29,9 +29,28 @@ Problem.find({}).remove(function() {
     ]
   },
   {
-    title: 'Table Find Element',
+    title: 'Hello String 2',
     topic: 'Strings',
-    difficulty: 1,
+    difficulty: 2,
+    author: "admin",
+    description: "Using the variable foo, return the String 'Hello'",
+    code: 'var sayHello = function() { \n\tvar foo = {{\'hello\'}} ;\n\t{{return}} foo ;\n}',
+    wordBank: [
+        "'hello'",
+        'hello',
+        'foo',
+        'return',
+        'do while',
+        '+=',
+        'var foo',
+        'this.foo',
+        'new Object(foo)'
+    ]
+  },
+  {
+    title: 'Table Find Element',
+    topic: 'Lists',
+    difficulty: 3,
     author: "admin",
     description: 'Find index of "value" in "table." Drag in the missing part.  \ninput: [4,5,6,7], 6\noutput: 2',
     code: 'function search(table, value) {\n\tvar i = 0;\n\twhile (i < {{table.length}}) {\n\t\tif (table[i] === value) {\n\t\treturn i;\n\t}\n\ti++;\n\t}\n}',
