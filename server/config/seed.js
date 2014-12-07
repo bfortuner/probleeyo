@@ -69,32 +69,32 @@ Topic.find({}).remove(function() {
   Topic.create({
     name : 'Strings',
     description : 'This is a short topic description here.',
-    link : '/problems/strings'
+    link : '/problems/topic/strings'
   },
   {
     name : 'Lists',
     description : 'This is a short topic description here.',
-    link : '/problems/lists'
+    link : '/problems/topic/lists'
   },
     {
     name : 'Loops',
     description : 'This is a short topic description here.',
-    link : '/problems/loops'
+    link : '/problems/topic/loops'
   },
   {
     name : 'Functions',
     description : 'This is a short topic description here.',
-    link : '/problems/functions'
+    link : '/problems/topic/functions'
   },
   {
     name : 'Conditionals',
     description : 'This is a short topic description here.',
-    link : '/problems/conditionals'
+    link : '/problems/topic/conditionals'
   },
   {
     name : 'Recursion',
     description : 'This is a short topic description here.',
-    link : '/problems/recursion'
+    link : '/problems/topic/recursion'
   }
  );
 });

@@ -7,11 +7,11 @@ angular.module('probleeApp')
         templateUrl: 'app/problems/problems.html',
         controller: 'ProblemsCtrl'
       })
-      .when('/problems/:topic', {
+      .when('/problems/topic/:topic', {
         templateUrl: 'app/problems/problems.html',
         controller: 'ProblemsCtrl'
       })
-      .when('/problems/:topic/:id', {
+      .when('/problems/topic/:topic/:id', {
         templateUrl: 'app/problems/problems.html',
         controller: 'ProblemsCtrl'
       });

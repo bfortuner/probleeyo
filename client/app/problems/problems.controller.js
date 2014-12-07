@@ -1,18 +1,52 @@
 'use strict';
 
 angular.module('probleeApp')
-  .controller('ProblemsCtrl', function ($scope, $sce, $filter, Problems) {
+  .controller('ProblemsCtrl', function ($scope, $sce, $filter, $route, $routeParams, $location, Problems) {
 
 
    /* --------- Initialize Problem -------- */
 
   $scope.getNextProblem = function() {
+    var topic = $routeParams.topic;
+    console.log(topic);
+    if (!topic) {
+      $scope.getAllProblems();  
+    } else if (topic === 'shuffle') {
+      $scope.getShuffleProblems();
+    } else {
+      $scope.getProblemByTopic(topic);  
+    }
+  };
+
+  $scope.getProblemByTopic = function(topic) {
+    Problems.getProblemsByTopic(topic).then(function(d) {
+      $scope.problems = d;
+      $scope.probId = getNextProblemId();
+    }).then( function() {
+      $scope.getProblem($scope.probId);
+    });
+  };
+
+  $scope.getShuffleProblems = function() {
+    Problems.getShuffleProblems().then(function(d) {
+      $scope.problems = d;
+      $scope.probId = getNextProblemId();
+    }).then( function() {
+      $scope.getProblem($scope.probId);
+    });
+  };
+
+  $scope.getAllProblems = function() {
     Problems.getProblems().then(function(d) {
       $scope.problems = d;
       $scope.probId = getNextProblemId();
     }).then( function() {
+      $scope.getProblem($scope.probId);
+    });
+  };
 
-      Problems.getProblem($scope.probId).then(function(d) {
+  $scope.getProblem = function(probId) {
+      Problems.getProblem(probId).then(function(d) {
         $scope.prob = d;
         $scope.prob.status = 'pending';
         $scope.prob.wordBank = getWordBank(d.wordBank);
@@ -20,23 +54,18 @@ angular.module('probleeApp')
         $scope.correctAnswers = getCorrectAnswers(d.code);
         $scope.userAnswers = getUserAnswers($scope.correctAnswers.length);
       });
-    
-    });
-
   };
 
-  //load first problem
-  $scope.getNextProblem();
-  $scope.currentProblemNum = 0;
-
   var getNextProblemId = function() {
-    var id = $scope.problems[$scope.currentProblemNum]._id;
-    if ($scope.currentProblemNum >= $scope.problems.length-1) {
-        $scope.currentProblemNum = 0;
+    if ($scope.currentProblemNum > $scope.problems.length-1) {
+        $location.path('/');
+        //$scope.currentProblemNum = 0;
     } else {
+        var id = $scope.problems[$scope.currentProblemNum]._id;
         $scope.currentProblemNum++;
+        return id;
     }
-    return id;
+
   };
 
   var getWordBank = function(wordBank) {
@@ -131,7 +160,11 @@ angular.module('probleeApp')
     return true;
   };
 
-
+var init = function () {
+  $scope.currentProblemNum = 0;
+  $scope.getNextProblem();
+};
+init();
 
 
 }); //end of controller
