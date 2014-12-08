@@ -4,6 +4,7 @@ angular.module('probleeApp')
   .controller('ProblemsCtrl', function ($scope, $sce, $filter, $route, $routeParams, $location, Problems) {
 
   var topic = $routeParams.topic;
+  var _id = $routeParams._id;
 
    /* --------- Initialize Problem -------- */
 
@@ -20,29 +21,31 @@ angular.module('probleeApp')
   $scope.getProblemByTopic = function(topic) {
     Problems.getProblemsByTopic(topic).then(function(d) {
       $scope.problems = d;
+      $scope.probId = getNextProblemId();
     }).then( function() {
-      $scope.getProblem();
+      $scope.getProblem($scope.probId);
     });
   };
 
   $scope.getShuffleProblems = function() {
     Problems.getShuffleProblems().then(function(d) {
       $scope.problems = d;
+      $scope.probId = getNextProblemId();
     }).then( function() {
-      $scope.getProblem();
+      $scope.getProblem($scope.probId);
     });
   };
 
   $scope.getAllProblems = function() {
     Problems.getProblems().then(function(d) {
       $scope.problems = d;
+      $scope.probId = getNextProblemId();
     }).then( function() {
-      $scope.getProblem();
+      $scope.getProblem($scope.probId);
     });
   };
 
-  $scope.getProblem = function() {
-      var probId = getNextProblemId();
+  $scope.getProblem = function(probId) {
       Problems.getProblem(probId).then(function(d) {
         $scope.prob = d;
         $scope.prob.status = 'pending';
@@ -172,9 +175,14 @@ angular.module('probleeApp')
   };
 
 var init = function () {
-  $scope.currentProblemNum = 0;
-  $scope.getNextProblem();
   console.log('intializing controller');
+  $scope.currentProblemNum = 0;
+  if (_id) {
+    $scope.probId = _id;
+    $scope.getProblem(_id);
+  } else {
+    $scope.getNextProblem();    
+  }
 };
 init();
 

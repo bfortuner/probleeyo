@@ -14,5 +14,9 @@ angular.module('probleeApp')
       .when('/problems/topic/:topic/:id', {
         templateUrl: 'app/problems/problems.html',
         controller: 'ProblemsCtrl'
+      })
+      .when('/problems/:_id', {
+        templateUrl: 'app/problems/problems.html',
+        controller: 'ProblemsCtrl'
       });
   });

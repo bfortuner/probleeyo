@@ -1,3 +1,105 @@
-<div class="col-md-12">
-This is the create view.
-</div>
+<nav-bar></nav-bar>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1>Create Problem</h1>
+    </div>
+    <div class="col-sm-12">
+
+      <form class="form" name="form" ng-submit=" createProblem(form)" novalidate>
+
+
+        <div class="form-group" ng-class="{ 'has-success': form.title.$valid && submitted,
+                                            'has-error': form.title.$invalid && submitted }">
+          <label>Title</label>
+
+          <input type="text" name="title" class="form-control" ng-model="problem.title"
+                 required/>
+          <p class="help-block" ng-show="form.title.$error.required && submitted">
+            A title is required
+          </p>
+        </div>
+
+
+  		<div class="form-group" ng-class="{ 'has-success': form.topic.$valid && submitted,
+                                            'has-error': form.topic.$invalid && submitted }">
+          <label>Topic</label>
+
+ 			<select ng-model="problem.topic" name="topic" class="form-control">
+				<option ng-repeat="topic in topics track by $index">{{topic.name}}</option>
+	      	</select>
+          <p class="help-block" ng-show="form.topic.$error.required && submitted">
+            A Topic is required
+          </p>
+        </div>
+
+
+  		<div class="form-group" ng-class="{ 'has-success': form.difficulty.$valid && submitted,
+                                            'has-error': form.difficulty.$invalid && submitted }">
+          <label>Difficulty</label>
+
+ 			<select ng-model="problem.difficulty" name="difficulty" class="form-control">
+				<option ng-repeat="level in difficulty track by $index">{{level}}</option>
+	      	</select>
+          <p class="help-block" ng-show="form.difficulty.$error.required && submitted">
+            A Difficulty is required
+          </p>
+        </div>
+
+
+        <div class="form-group" ng-class="{ 'has-success': form.description.$valid && submitted,
+                                            'has-error': form.description.$invalid && submitted }">
+          <label>Description</label>
+
+          <input type="text" name="description" class="form-control" ng-model="problem.description"
+                 ng-minlength="3"
+                 required
+                 mongoose-error/>
+          <p class="help-block"
+             ng-show="(form.description.$error.minlength || form.description.$error.required) && submitted">
+            Description must be at least 50 characters.
+          </p>
+          <p class="help-block" ng-show="form.description.$error.mongoose">
+            {{ errors.description }}
+          </p>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-success': form.wordBank.$valid && submitted,
+                                            'has-error': form.wordBank.$invalid && submitted }">
+          <label>Word Bank</label>
+
+          <input type="text" name="wordBank" class="form-control" ng-model="problem.wordBank"
+                 required
+                 mongoose-error/
+                 placeholder="return,'hello',var foo">
+          <p class="help-block" ng-show="form.wordBank.$error.mongoose">
+            {{ errors.wordBank }}
+          </p>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-success': form.description.$valid && submitted,
+                                            'has-error': form.description.$invalid && submitted }">
+          <label>Code</label>
+             
+	        <textarea style="min-height:100px;" ng-model="problem.code" class="form-control input-md" name="code">{{problem.code}}</textarea>
+    	      <p class="help-block"
+        	     ng-show="(form.code.$error.minlength || form.code.$error.required) && submitted">
+            	Code must be at least 50 characters.
+          	</p>
+          	<p class="help-block" ng-show="form.code.$error.mongoose">
+            {{ errors.code }}
+          	</p>
+        </div>
+
+
+        <div>
+          <button class="btn btn-primary btn-lg" type="submit">
+            Submit
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</container>
