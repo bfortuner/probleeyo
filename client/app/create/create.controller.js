@@ -56,7 +56,7 @@ angular.module('probleeApp')
         	$scope.problem.topic = $scope.topics[0].name;     
      	});
      	$scope.problem.difficulty = $scope.difficulty[0];
-    	$scope.problem.code = 'var myFunc = function() {\n\n\treturn foo;\n}';
+    	$scope.problem.code = 'var myFunc = function() {\n\tvar foo  =  {{\'hello\'}} ;\n\t{{return}}  foo ;\n}';
 	    $scope.problem.wordBank = [{'name':''}]; // array of word objects
   };
 	initForm();
