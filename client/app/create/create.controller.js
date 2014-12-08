@@ -14,9 +14,8 @@ angular.module('probleeApp')
           description: $scope.problem.description,
           code: $scope.problem.code,
           author: $scope.problem.author,
-          wordBank: $scope.problem.wordBank.split(',')
+          wordBank: convertWordBankToArr($scope.problem.wordBank)
         }).then( function(res) {
-          console.log(res._id);
           $location.path('/problems/' + res._id);
         })
         .catch( function(err) {
@@ -32,8 +31,24 @@ angular.module('probleeApp')
       }
     };
 
+    var convertWordBankToArr = function(wordBankObjArr) {
+      var newArr = [];
+      for (var i in wordBankObjArr) {
+        newArr.push(wordBankObjArr[i].name);
+      }
+      return newArr;
+    };
+
+    $scope.addWord = function() {
+      $scope.problem.wordBank.push({'name':''});
+    };
+
+    $scope.removeWord = function(index) {
+      $scope.problem.wordBank.splice(index,1);
+    };
+
     var initForm = function() {
-	    $scope.problem = {};
+      $scope.problem = {};
     	$scope.errors = {};
     	$scope.difficulty = [1,2,3,4,5];
     	Topics.getTopics().then(function(d) {
@@ -42,7 +57,8 @@ angular.module('probleeApp')
      	});
      	$scope.problem.difficulty = $scope.difficulty[0];
     	$scope.problem.code = 'var myFunc = function() {\n\n\treturn foo;\n}';
-	};
+	    $scope.problem.wordBank = [{'name':''}]; // array of word objects
+  };
 	initForm();
 
   });

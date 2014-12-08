@@ -301,7 +301,7 @@ module.exports = function (grunt) {
       options: {
         // This should be the name of your apps angular module
         module: 'probleeApp',
-        htmlmin: {
+		/*htmlmin: {
           collapseBooleanAttributes: true,
           collapseWhitespace: true,
           removeAttributeQuotes: true,
@@ -309,7 +309,7 @@ module.exports = function (grunt) {
           removeRedundantAttributes: true,
           removeScriptTypeAttributes: true,
           removeStyleLinkTypeAttributes: true
-        },
+	  },*/
         usemin: 'app/app.js'
       },
       main: {

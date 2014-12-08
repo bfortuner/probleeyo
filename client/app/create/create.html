@@ -64,25 +64,43 @@
             {{ errors.description }}
           </p>
         </div>
+        <label>Word Bank</label><br>
+        <table style="padding-left:0xp; padding-right:0px;" class="form-group col-xs-12 text-left" ng-repeat="word in problem.wordBank track by $index" 
+          ng-class="{ 'has-success': form.wordBank.$valid && submitted, 
+          'has-error': form.wordBank.$invalid && submitted && $index == problem.wordBank.length-1}">
+         <tbody>
+          <tr>
+            <td style="width:80%">
+                <input type="text" name="wordBank" class="form-control" ng-model="word.name"
+                       required
+                       mongoose-error>            
+           </td>
+           <td style="width:5%">
+              <span ng-show="problem.wordBank.length > 1" ng-click="removeWord($index)" class="btn btn-danger btn-xs"><span style="font-size:20"><b>-</b></span>
+              </span>
+            </td>
+            <td style="width:5%">
+              <span ng-show='word.name.length > 0 && ($index == problem.wordBank.length-1)' ng-click="addWord()" class="btn btn-success btn-xs">
+                <span style="font-size:20"><b>+</b></span>
+              </span>
+            </td>
 
-        <div class="form-group" ng-class="{ 'has-success': form.wordBank.$valid && submitted,
-                                            'has-error': form.wordBank.$invalid && submitted }">
-          <label>Word Bank</label>
-
-          <input type="text" name="wordBank" class="form-control" ng-model="problem.wordBank"
-                 required
-                 mongoose-error/
-                 placeholder="return,'hello',var foo">
-          <p class="help-block" ng-show="form.wordBank.$error.mongoose">
-            {{ errors.wordBank }}
-          </p>
-        </div>
+          </tr>
+          <tr>
+            <td>
+              <p class="help-block" ng-show="form.wordBank.$error.mongoose">
+                {{ errors.wordBank }}
+              </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
         <div class="form-group" ng-class="{ 'has-success': form.description.$valid && submitted,
                                             'has-error': form.description.$invalid && submitted }">
           <label>Code</label>
              
-	        <textarea style="min-height:100px;" ng-model="problem.code" class="form-control input-md" name="code">{{problem.code}}</textarea>
+	        <textarea rows="5" ng-model="problem.code" class="form-control input-md" name="code">{{problem.code}}</textarea>
     	      <p class="help-block"
         	     ng-show="(form.code.$error.minlength || form.code.$error.required) && submitted">
             	Code must be at least 50 characters.
@@ -92,9 +110,8 @@
           	</p>
         </div>
 
-
         <div>
-          <button class="btn btn-primary btn-lg" type="submit">
+          <button style="width:30%;" class="btn btn-primary btn-lg" type="submit">
             Submit
           </button>
         </div>
@@ -103,3 +120,4 @@
     </div>
   </div>
 </container>
+<br>
