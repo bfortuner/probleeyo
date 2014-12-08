@@ -8,7 +8,6 @@ angular.module('probleeApp')
               pos: '=',
               answer: '=',
           },
-          controller: 'ProblemsCtrl',
           templateUrl: 'app/problems/answerField.html',     
       };
   })
@@ -18,7 +17,6 @@ angular.module('probleeApp')
           scope: {
             wordbank: '=',
           },
-          controller: 'ProblemsCtrl',
           templateUrl: 'app/problems/wordBank.html',     
       };
   });

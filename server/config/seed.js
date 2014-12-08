@@ -34,7 +34,7 @@ Problem.find({}).remove(function() {
     difficulty: 2,
     author: "admin",
     description: "Using the variable foo, return the String 'Hello'",
-    code: 'var sayHello = function() { \n\tvar foo = {{\'hello\'}} ;\n\t{{return}} foo ;\n}',
+    code: '{{var}} sayHello {{=}} function() { \n\tvar {{foo}} = {{\'hello\'}} ;\n\t{{return}} foo ;\n}',
     wordBank: [
         "'hello'",
         'hello',
@@ -44,7 +44,9 @@ Problem.find({}).remove(function() {
         '+=',
         'var foo',
         'this.foo',
-        'new Object(foo)'
+        'new Object(foo)',
+        'var',
+        '='
     ]
   },
   {
