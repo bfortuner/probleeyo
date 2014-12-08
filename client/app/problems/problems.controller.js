@@ -4,6 +4,7 @@ angular.module('probleeApp')
   .controller('ProblemsCtrl', function ($scope, $sce, $filter, $route, $routeParams, $location, Problems) {
 
   var topic = $routeParams.topic;
+
    /* --------- Initialize Problem -------- */
 
   $scope.getNextProblem = function() {
@@ -40,7 +41,7 @@ angular.module('probleeApp')
     });
   };
 
-  $scope.getProblem = function(problems) {
+  $scope.getProblem = function() {
       var probId = getNextProblemId();
       Problems.getProblem(probId).then(function(d) {
         $scope.prob = d;
@@ -58,7 +59,6 @@ angular.module('probleeApp')
         //$scope.currentProblemNum = 0;
     } else {
         var id = $scope.problems[$scope.currentProblemNum]._id;
-        console.log("ID = " + id);
         $scope.currentProblemNum++;
         return id;
     }
@@ -93,33 +93,45 @@ angular.module('probleeApp')
     return answers;
   };  
 
+  /* 
+    Input: code string with user wildcards {{hello}}
+    
+    Output: Matrix with code string split on '\n'
+    and then split again on '{{wildcards}}'
+
+    User wildcards are swapped out with placeholders
+    each holding an index val ( '{{W}}0', '{{W}}1' )
+
+    def myFunc = function() { \n
+      var {{foo}} = 'hello';\n
+      {{return}} foo ;\n
+
+    [ ['def myFunc = function() {'],
+      ['var ', '{{W}}0', ' = ', ''hello';'],
+      ['{{W}}1', ' foo ;'] 
+    ] 
+  */ 
   var getProbCodeLines = function(probCodeStr) {
     var codeLines = probCodeStr.split('\n');
-    //console.log(codeLines);
-    var lineCount = codeLines.length;
     var curWildcardIndex = 0;
-    for (var i=0; i<lineCount; i++) {
-      console.log(codeLines[i]);
-      var subLine = codeLines[i].split(/\{\{.+\}\}/);
-      console.log(subLine);
-
-      if (subLine.length === 1) {
-        codeLines[i] = subLine;
-      } else {
-        var newSubLine = [];
-        for (var j=0; j<subLine.length; j++) {
-          if (j < subLine.length-1) {
-            newSubLine.push(subLine[j]);
-            newSubLine.push('{{W}}' + curWildcardIndex);
-            curWildcardIndex++;
-          } else {
-            newSubLine.push(subLine[j]);
-          }
-        
+    for (var i in codeLines) {
+      var curLineStr = codeLines[i];
+      var curSubList = [];
+      var wildcards = curLineStr.match(/\{\{((?!\}\})(?!\{\{).)+\}\}/g);
+      if (wildcards) {
+        var start = 0;
+        for (var j in wildcards) {
+          var wildcardIndex = curLineStr.search(wildcards[j]);
+          curSubList.push(curLineStr.substring(start, wildcardIndex));
+          curSubList.push('{{W}}' + curWildcardIndex);
+          start = wildcardIndex + wildcards[j].length;
+          curWildcardIndex++;
         }
-      codeLines[i] = newSubLine;
+        curSubList.push(curLineStr.substring(start));
+      } else {
+        curSubList.push(curLineStr);
       }
-      console.log(codeLines[i]);
+      codeLines[i] = curSubList;
     }
 
     return codeLines;
@@ -162,7 +174,7 @@ angular.module('probleeApp')
 var init = function () {
   $scope.currentProblemNum = 0;
   $scope.getNextProblem();
-  console.log("intializing controller");
+  console.log('intializing controller');
 };
 init();
 
