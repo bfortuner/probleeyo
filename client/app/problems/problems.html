@@ -1,10 +1,14 @@
 
 <nav-bar></nav-bar>
-<div class="alert">
+  <div class="alert">
        <button  class="close" type="button"data-dismiss="alert" aria-hidden="true">&times;</button>
        Incorrect! Check the highlighted areas.
-     </div>
-
+  </div>
+    
+     <div ng-show="isAdmin()">
+        <a class="btn btn-md btn-warning" href="/edit/{{probId}}">Edit / Delete</a>
+     </div> 
+    
      <div class="problemDesc">
        <div class="container"
          <p id="info-text">{{prob.description}}</p>

@@ -27,6 +27,7 @@ angular.module('probleeApp')
           wordBank: convertWordBankToArr($scope.problem.wordBank)
         }).then( function(res) {
           $location.path('/problems/' + $scope.problem._id);
+          //if(!$scope.$$phase){$scope.$apply()};
         })
         .catch( function(err) {
           err = err.data;
@@ -40,6 +41,14 @@ angular.module('probleeApp')
         });
       }
     };
+
+  $scope.deleteProblem = function(probId) {
+    Problems.deleteProblem(probId).then(function(d) {
+         //show message here
+      }).then( function(res) {
+         $location.path('/create');
+      });
+  };
 
   var getWordBank = function(wordBank) {
       var newWordBank = [];
@@ -55,7 +64,6 @@ angular.module('probleeApp')
       for (var i in wordBankObjArr) {
         newArr.push(wordBankObjArr[i].name);
       }
-      console.log(newArr);
       return newArr;
     };
 
@@ -69,11 +77,12 @@ angular.module('probleeApp')
 
     var initForm = function() {
         $scope.getProblem(_id);
-		$scope.difficulty = [1,2,3,4,5];
-		Topics.getTopics().then(function(d) {
-	    	$scope.topics = d;  
-	 	});
+		    $scope.difficulty = [1,2,3,4,5];
+		    Topics.getTopics().then(function(d) {
+	    	  $scope.topics = d;  
+	 	   });
   	};
-	initForm();
+	 initForm();
 
-  });
+
+});

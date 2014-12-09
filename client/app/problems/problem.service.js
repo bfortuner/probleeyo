@@ -31,8 +31,14 @@ angular.module('probleeApp')
 		 return response.data;
 	     });
 	     return promise;
+	   },
+	   deleteProblem: function(problemId) {
+	     var url = '/api/problems/' + problemId; 
+	     var promise = $http.delete(url).then(function (response) {
+		 return response.data;
+	     });
+	     return promise;
 	   }
-
 	};
 
   });

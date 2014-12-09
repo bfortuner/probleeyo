@@ -1,10 +1,14 @@
 'use strict';
 
 angular.module('probleeApp')
-  .controller('ProblemsCtrl', function ($scope, $sce, $filter, $route, $routeParams, $location, Problems) {
+  .controller('ProblemsCtrl', function ($scope, $sce, $filter, $route, $routeParams, $location, Problems, Auth) {
 
   var topic = $routeParams.topic;
   var _id = $routeParams._id;
+
+  $scope.isLoggedIn = Auth.isLoggedIn;
+  $scope.isAdmin = Auth.isAdmin;
+  $scope.getCurrentUser = Auth.getCurrentUser;
 
    /* --------- Initialize Problem -------- */
 
