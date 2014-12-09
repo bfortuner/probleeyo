@@ -1,13 +1,23 @@
 'use strict';
 
 angular.module('probleeApp')
-  .controller('CreateCtrl', function ($scope, $location, Create, Topics) {
+  .controller('EditCtrl', function ($scope, $location, $routeParams, Edit, Topics, Problems) {
 
-    $scope.createProblem = function(form) {
+  var _id = $routeParams._id;
+
+  $scope.getProblem = function(probId) {
+      Problems.getProblem(probId).then(function(d) {
+        $scope.problem = d;
+        $scope.problem.wordBank = getWordBank(d.wordBank);
+        $scope.problem.author = 'admin';
+      });
+  };
+
+    $scope.editProblem = function(form) {
       $scope.submitted = true;
-
       if(form.$valid) {
-        Create.createProblem({
+        Edit.editProblem({
+          id: $scope.problem._id,
           title: $scope.problem.title,
           topic: $scope.problem.topic,
           difficulty: $scope.problem.difficulty,
@@ -16,7 +26,7 @@ angular.module('probleeApp')
           author: $scope.problem.author,
           wordBank: convertWordBankToArr($scope.problem.wordBank)
         }).then( function(res) {
-          $location.path('/problems/' + res._id);
+          $location.path('/problems/' + $scope.problem._id);
         })
         .catch( function(err) {
           err = err.data;
@@ -30,6 +40,15 @@ angular.module('probleeApp')
         });
       }
     };
+
+  var getWordBank = function(wordBank) {
+      var newWordBank = [];
+      var word;
+      for (word in wordBank) {
+        newWordBank.push({ 'name': wordBank[word] });
+      }
+      return newWordBank;
+  };
 
     var convertWordBankToArr = function(wordBankObjArr) {
       var newArr = [];
@@ -49,17 +68,12 @@ angular.module('probleeApp')
     };
 
     var initForm = function() {
-      $scope.problem = {};
-    	$scope.errors = {};
-    	$scope.difficulty = [1,2,3,4,5];
-    	Topics.getTopics().then(function(d) {
-        	$scope.topics = d;
-        	$scope.problem.topic = $scope.topics[0].name;     
-     	});
-     	$scope.problem.difficulty = $scope.difficulty[0];
-    	$scope.problem.code = 'var myFunc = function() {\n\tvar foo  =  {{\'hello\'}} ;\n\t{{return}}  foo ;\n}';
-	    $scope.problem.wordBank = [{'name':''}]; // array of word objects
-  };
+        $scope.getProblem(_id);
+		$scope.difficulty = [1,2,3,4,5];
+		Topics.getTopics().then(function(d) {
+	    	$scope.topics = d;  
+	 	});
+  	};
 	initForm();
 
   });

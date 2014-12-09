@@ -42,12 +42,22 @@ exports.create = function(req, res) {
 };
 
 // Updates an existing problem in the DB.
+exports.update1 = function(req, res) {
+  console.log(req.body)
+  Problem.update({ _id: req.body.id }, req.body, { multi: false }, function(err) {
+    if(err) { throw err; }
+  });
+};
+
+// Updates an existing problem in the DB.
 exports.update = function(req, res) {
   if(req.body._id) { delete req.body._id; }
   Problem.findById(req.params.id, function (err, problem) {
     if (err) { return handleError(res, err); }
     if(!problem) { return res.send(404); }
+    problem.wordBank = [];
     var updated = _.merge(problem, req.body);
+    updated.markModified('wordBank');
     updated.save(function (err) {
       if (err) { return handleError(res, err); }
       return res.json(200, problem);

@@ -1,0 +1,128 @@
+<nav-bar></nav-bar>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1>Edit Problem</h1>
+    </div>
+    <div class="col-sm-12">
+
+      <form class="form" name="form" ng-submit=" editProblem(form)" novalidate>
+
+
+        <div class="form-group" ng-class="{ 'has-success': form.title.$valid && submitted,
+                                            'has-error': form.title.$invalid && submitted }">
+          <label>Title</label>
+
+          <input type="text" name="title" class="form-control" ng-model="problem.title"
+                 required/>
+          <p class="help-block" ng-show="form.title.$error.required && submitted">
+            A title is required
+          </p>
+        </div>
+
+
+  		<div class="form-group" ng-class="{ 'has-success': form.topic.$valid && submitted,
+                                            'has-error': form.topic.$invalid && submitted }">
+          <label>Topic</label>
+
+ 			<select ng-model="problem.topic" name="topic" class="form-control">
+				<option ng-repeat="t in topics track by $index">{{t.name}}</option>
+	      	</select>
+          <p class="help-block" ng-show="form.topic.$error.required && submitted">
+            A Topic is required
+          </p>
+        </div>
+
+
+  		<div class="form-group" ng-class="{ 'has-success': form.difficulty.$valid && submitted,
+                                            'has-error': form.difficulty.$invalid && submitted }">
+          <label>Difficulty</label>
+
+ 			<select ng-model="problem.difficulty" name="difficulty" class="form-control">
+				<option ng-repeat="level in difficulty track by $index">{{level}}</option>
+	      	</select>
+          <p class="help-block" ng-show="form.difficulty.$error.required && submitted">
+            A Difficulty is required
+          </p>
+        </div>
+
+
+        <div class="form-group" ng-class="{ 'has-success': form.description.$valid && submitted,
+                                            'has-error': form.description.$invalid && submitted }">
+          <label>Description</label>
+
+          <input type="text" name="description" class="form-control" ng-model="problem.description"
+                 ng-minlength="20"
+                 required
+                 mongoose-error/>
+          <p class="help-block"
+             ng-show="(form.description.$error.minlength || form.description.$error.required) && submitted">
+            Description must be at least 20 characters.
+          </p>
+          <p class="help-block" ng-show="form.description.$error.mongoose">
+            {{ errors.description }}
+          </p>
+        </div>
+
+        <label>Word Bank</label><br>
+        <table style="padding-left:0xp; padding-right:0px;" class="form-group col-xs-12 text-left" ng-repeat="word in problem.wordBank track by $index" 
+          ng-class="{ 'has-success': form.wordBank.$valid && submitted, 
+          'has-error': form.wordBank.$invalid && submitted && $index == problem.wordBank.length-1}">
+         <tbody>
+          <tr>
+            <td style="width:80%">
+                <input type="text" name="name_$index" class="form-control" ng-model="word.name"
+                       required
+                       mongoose-error>            
+           </td>
+           <td style="width:5%">
+              <span ng-show="problem.wordBank.length > 1" ng-click="removeWord($index)" class="btn btn-danger btn-xs"><span style="font-size:20"><b>-</b></span>
+              </span>
+            </td>
+            <td style="width:5%">
+              <span ng-show='word.name.length > 0 && ($index == problem.wordBank.length-1)' ng-click="addWord()" class="btn btn-success btn-xs">
+                <span style="font-size:20"><b>+</b></span>
+              </span>
+            </td>
+
+          </tr>
+          <tr>
+            <td>
+              <p class="help-block" ng-show="form.wordBank.$error.mongoose">
+                {{ errors.wordBank }}
+              </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+        <div class="form-group" ng-class="{ 'has-success': form.code.$valid && submitted,
+                                            'has-error': form.code.$invalid && submitted }">
+      <div ui-ace="{
+       useWrapMode : true,
+       showGutter: false,
+       theme:'textmate',
+       mode: 'javascript',
+       }" ng-model="problem.code">
+     </div>
+    	<p class="help-block"
+        	ng-show="(form.code.$error.minlength || form.code.$error.required) && submitted">
+          Code must be at least 50 characters.
+      </p>
+      <p class="help-block" ng-show="form.code.$error.mongoose">
+          {{ errors.code }}
+      </p>
+    </div>
+
+        <div>
+          <button style="width:30%;" class="btn btn-primary btn-lg" type="submit">
+            Save Changes
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</container>
+<br>
