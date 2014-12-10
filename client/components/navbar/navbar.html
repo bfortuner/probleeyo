@@ -27,10 +27,11 @@
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-        <li ng-hide="isLoggedIn()"><a href="/signup">Sign up</a></li>
+        <!--<li ng-hide="isLoggedIn()"><a href="/signup">Sign up</a></li>-->
         <li ng-hide="isLoggedIn()"><a href="/login">Login</a></li>
-        <li ng-show="isLoggedIn()"><p class="navbar-text">Hello {{ getCurrentUser().name }}</p> </li>
-        <li ng-show="isLoggedIn()"><a href="/settings"><span class="glyphicon glyphicon-cog"></span></a></li>
+        <li ng-show="isLoggedIn()"><a href="/users/{{getCurrentUser()._id}}">My Profile</a></li>
+        <!--<li ng-show="isLoggedIn()"><p class="navbar-text">Hello {{ getCurrentUser().name }}</p> </li>
+        <li ng-show="isLoggedIn()"><a href="/settings"><span class="glyphicon glyphicon-cog"></span></a></li>-->
         <li ng-show="isLoggedIn()"><a href="" ng-click="logout()">Logout</a></li>
       </ul>
     </div>
