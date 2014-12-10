@@ -19,5 +19,12 @@ module.exports = {
             process.env.MONGOHQ_URL ||
             process.env.OPENSHIFT_MONGODB_DB_URL+process.env.OPENSHIFT_APP_NAME ||
             'mongodb://localhost/probleeapp'
+  },
+
+  facebook: {
+    clientID:     process.env.FACEBOOK_ID_PROD || 'id',
+    clientSecret: process.env.FACEBOOK_SECRET_PROD || 'secret',
+    callbackURL:  (process.env.DOMAIN || '') + '/auth/facebook/callback'
   }
+
 };

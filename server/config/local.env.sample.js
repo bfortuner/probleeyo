@@ -9,7 +9,7 @@ module.exports = {
   DOMAIN:           'http://localhost:9000',
   SESSION_SECRET:   'probleeapp-secret',
 
-  FACEBOOK_ID:      'app-id',
+  FACEBOOK_ID:      'api-id',
   FACEBOOK_SECRET:  'secret',
 
   TWITTER_ID:       'app-id',
