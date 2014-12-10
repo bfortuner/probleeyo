@@ -8,6 +8,9 @@ var authTypes = ['github', 'twitter', 'facebook', 'google'];
 var UserSchema = new Schema({
   name: String,
   email: { type: String, lowercase: true },
+  website: { type: String, default: 'www.github.com/myusername' },
+  level: { type: Number, default: 1 },
+  joined: { type: Date, default: Date.now },
   role: {
     type: String,
     default: 'user'
@@ -40,8 +43,12 @@ UserSchema
   .virtual('profile')
   .get(function() {
     return {
+      //'_id': this._id,
       'name': this.name,
-      'role': this.role
+      'role': this.role,
+      'website': this.website,
+      'level': this.level,
+      'joined': this.joined
     };
   });
 
