@@ -51,7 +51,7 @@ Problem.find({}).remove(function() {
   },
   {
     title: 'Table Find Element',
-    topic: 'Lists',
+    topic: 'Arrays',
     difficulty: 3,
     author: "admin",
     description: 'Find index of "value" in "table." Drag in the missing part.  \ninput: [4,5,6,7], 6\noutput: 2',
@@ -63,6 +63,67 @@ Problem.find({}).remove(function() {
         'i',
         '10',
         'this'
+    ]
+  },
+  {
+    title: 'Testing String Operators',
+    topic: 'Strings',
+    difficulty: 1,
+    author: "admin",
+    description: 'Add the operator to make the string \'yaba\'',
+    code: '\'ya\' {{+}} \'ba\'',
+    wordBank: [
+        'concat',
+        '+=',
+        '+',
+        '+'
+    ]
+  },
+  {
+    title: 'Testing Math Operators 2',
+    topic: 'Numbers',
+    difficulty: 1,
+    author: "admin",
+    description: 'Complete the expression to compute the value 12.0',
+    code: '{{5.0}} {{+}} 7.0',
+    wordBank: [
+        '5.0',
+        '+',
+        '-',
+        '*',
+        '12',
+        '12.0',
+    ]
+  },
+  {
+    title: 'Testing For Loops',
+    topic: 'Loops',
+    difficulty: 1,
+    author: "admin",
+    description: 'Compute the sum of the numbers from 1 to 5.',
+    code: 'var sum = 0;\nfor (var i = {{1}}; i < {{5}}; i++) {\n\tsum += {{i}};\n}',
+    wordBank: [
+        '1',
+        '5',
+        'sum',
+        '0',
+        'i'
+    ]
+  },
+  {
+    title: 'Testing Strings inside wildcards',
+    topic: 'Strings',
+    difficulty: 1,
+    author: "admin",
+    description: 'Complete the expression for the string \'yaba\'',
+    code: '{{\'ya\'}} + {{\'ba\'}}',
+    wordBank: [
+        'ya',
+        'ba',
+        '\'ya\'',
+        '\'ba\'',
+        'yaba',
+        '\'yaba\''
     ]
   });
 });
@@ -76,12 +137,12 @@ Topic.find({}).remove(function() {
   {
     name : 'Numbers',
     description : 'Problems involving math',
-    link : '/problems/topic/lists'
+    link : '/problems/topic/numbers'
   },
   {
     name : 'Arrays',
     description : 'Looping through, chopping up, and manipulating Arrays',
-    link : '/problems/topic/lists'
+    link : '/problems/topic/arrays'
   },
   {
     name : 'Loops',

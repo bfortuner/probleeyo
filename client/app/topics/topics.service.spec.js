@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: topics', function () {
+describe('Service: Topics', function () {
 
   // load the service's module
   beforeEach(module('probleeApp'));

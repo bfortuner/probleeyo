@@ -1,0 +1,6 @@
+{ "_id" : { "$oid" : "5489e85677dd2ac73c570412" }, "name" : "Strings", "description" : "Problems for parsing and manipulating Strings", "link" : "/problems/topic/strings", "__v" : 0 }
+{ "_id" : { "$oid" : "5489e85677dd2ac73c570413" }, "name" : "Numbers", "description" : "Problems involving math", "link" : "/problems/topic/numbers", "__v" : 0 }
+{ "_id" : { "$oid" : "5489e85677dd2ac73c570414" }, "name" : "Arrays", "description" : "Looping through, chopping up, and manipulating Arrays", "link" : "/problems/topic/arrays", "__v" : 0 }
+{ "_id" : { "$oid" : "5489e85677dd2ac73c570415" }, "name" : "Loops", "description" : "While loops, For loops, loops through Arrays and Strings", "link" : "/problems/topic/loops", "__v" : 0 }
+{ "_id" : { "$oid" : "5489e85677dd2ac73c570416" }, "name" : "Conditionals", "description" : "Problems that test your mastery of If, Else If, and Else clauses", "link" : "/problems/topic/conditionals", "__v" : 0 }
+{ "_id" : { "$oid" : "5489e85677dd2ac73c570417" }, "name" : "Recursion", "description" : "Problems requiring at least a basic understanding of Recursive functions.", "link" : "/problems/topic/recursion", "__v" : 0 }

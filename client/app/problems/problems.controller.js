@@ -1,14 +1,15 @@
 'use strict';
 
 angular.module('probleeApp')
-  .controller('ProblemsCtrl', function ($scope, $sce, $filter, $route, $routeParams, $location, Problems, Auth) {
+  .controller('ProblemsCtrl', function ($scope, $sce, $filter, $route, $routeParams, $location, Problems, Auth, Users) {
 
   var topic = $routeParams.topic;
   var _id = $routeParams._id;
 
   $scope.isLoggedIn = Auth.isLoggedIn;
   $scope.isAdmin = Auth.isAdmin;
-  $scope.getCurrentUser = Auth.getCurrentUser;
+  $scope.currentUser = Auth.getCurrentUser;
+  console.log($scope.currentUser._id);
 
    /* --------- Initialize Problem -------- */
 
@@ -128,9 +129,11 @@ angular.module('probleeApp')
       if (wildcards) {
         var start = 0;
         for (var j in wildcards) {
-          var wildcardIndex = curLineStr.search(wildcards[j]);
+          //var wildcardIndex = curLineStr.search(/\{\{((?!\}\})(?!\{\{).)+\}\}/);
+          var wildcardIndex = curLineStr.indexOf(wildcards[j]);
           curSubList.push(curLineStr.substring(start, wildcardIndex));
           curSubList.push('{{W}}' + curWildcardIndex);
+
           start = wildcardIndex + wildcards[j].length;
           curWildcardIndex++;
         }
@@ -150,6 +153,17 @@ angular.module('probleeApp')
 
   /* -------- Handle User Actions --------- */
 
+  $scope.setProblemSolved = function() {
+    var solved = {'userId':$scope.currentUser._id,
+                  'probId':$scope.probId };
+    Problems.getProblemsByTopic(topic).then(function(d) {
+      $scope.problems = d;
+      $scope.probId = getNextProblemId();
+    }).then( function() {
+      $scope.getProblem($scope.probId);
+    });
+  };
+
   $scope.popWord = function(index) {
     var val = $scope.userAnswers[index].pop();
     $scope.prob.wordBank.push(val);
@@ -159,8 +173,9 @@ angular.module('probleeApp')
      if(checkAnswer()) {
         $scope.prob.status = 'solved';
         $('.alert').show().removeClass('alert-danger').addClass('alert-success').text('Good Job');
+        $scope.setProblemSolved();
       } else {
-        $('.alert').show().removeClass('alert-success').addClass('alert-danger').text('Incorrect! Check the test cases for clues as to what went wrong.');
+        $('.alert').show().removeClass('alert-success').addClass('alert-danger').text('Incorrect! Try again.');
       }
       setTimeout(function(){
         $('.alert').fadeOut();
@@ -178,17 +193,17 @@ angular.module('probleeApp')
     return true;
   };
 
-var init = function () {
-  console.log('intializing controller');
-  $scope.currentProblemNum = 0;
-  if (_id) {
-    $scope.probId = _id;
-    $scope.getProblem(_id);
-  } else {
-    $scope.getNextProblem();    
-  }
-};
-init();
+  var init = function () {
+    console.log('intializing controller');
+    $scope.currentProblemNum = 0;
+    if (_id) {
+      $scope.probId = _id;
+      $scope.getProblem(_id);
+    } else {
+      $scope.getNextProblem();    
+    }
+  };
+  init();
 
 
 }); //end of controller

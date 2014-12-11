@@ -20,7 +20,7 @@
        <section class="container problemCode problem">
         
         <div ng-repeat="line in prob.codeLines">
-          <span ng-repeat="str in line">
+          <span ng-repeat="str in line track by $index">
               
               <span ng-if="str.substring(0,5) != '\{\{W\}\}'" ng-bind-html="str | code_html"></span>
               
