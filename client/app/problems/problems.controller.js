@@ -8,11 +8,9 @@ angular.module('probleeApp')
   $scope.isLoggedIn = Auth.isLoggedIn;
   $scope.isAdmin = Auth.isAdmin;
   $scope.getCurrentUser = Auth.getCurrentUser; //method
-  $scope.currentProblemNum = 0;
 
 
    /* --------- Initialize Problem -------- */
-
 
   $scope.getProblem = function(probId) {
     Problems.getProblem(probId).then(function(d) {
@@ -41,7 +39,7 @@ angular.module('probleeApp')
     });
   };
 
-  $scope.getNextProblem = function() {
+  $scope.getProblems = function() {
    if (!$scope.topic) {
       $scope.getAllProblems();  
     } else if ($scope.topic === 'shuffle') {
@@ -54,37 +52,36 @@ angular.module('probleeApp')
   $scope.getProblemByTopic = function(topic) {
     Problems.getProblemsByTopic(topic).then(function(d) {
       $scope.problems = d;
-      $scope.probId = getNextProblemId();
     }).then( function() {
-      $scope.getProblem($scope.probId);
+      $scope.getNextProblem();  
     });
   };
 
   $scope.getShuffleProblems = function() {
     Problems.getShuffleProblems().then(function(d) {
       $scope.problems = d;
-      $scope.probId = getNextProblemId();
     }).then( function() {
-      $scope.getProblem($scope.probId);
+      $scope.getNextProblem();  
     });
   };
 
   $scope.getAllProblems = function() {
     Problems.getProblems().then(function(d) {
       $scope.problems = d;
-      $scope.probId = getNextProblemId();
     }).then( function() {
-      $scope.getProblem($scope.probId);
+      $scope.getNextProblem();  
     });
   };
 
-  var getNextProblemId = function() {
-    if ($scope.currentProblemNum > $scope.problems.length-1) {
+  $scope.getNextProblem = function() {
+    if ($scope.problems.length === 0) {
         $location.path('/');
-        //$scope.currentProblemNum = 0;
+        //$('.alert').show().removeClass('alert-danger').addClass('alert-success').text('Nice! You completed all the problems in this set.');
     } else {
-        var id = $scope.problems[$scope.currentProblemNum]._id;
-        $scope.currentProblemNum++;
+        var probIndex = (Math.random()*$scope.problems.length) | 0;
+        var id = $scope.problems[probIndex]._id;
+        $scope.getProblem(id);
+        var lastProb = $scope.problems.splice(probIndex,1);
         return id;
     }
   };
@@ -219,7 +216,7 @@ angular.module('probleeApp')
     if ($scope._id) {
       $scope.getProblem($scope._id);
     } else {
-      $scope.getNextProblem();    
+      $scope.getProblems();  
     }
   };
   init();
