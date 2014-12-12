@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('probleeApp')
-  .service('Users', function ($http) {
+  .service('Users', function ($http, $filter) {
 
     return {
 	   getUsers: function() {
@@ -16,35 +16,6 @@ angular.module('probleeApp')
 	     console.log(userId);
 	     var promise = $http.get(url).then(function (response) {
 	     console.log(promise);
-		 return response.data;
-	     });
-	     return promise;
-	   },
-	   setSolved: function (solved) {
-		    solved = $filter('json')(solved);
-		    var promise = $http({
-			method:'POST',
-			url: '/api/solved',
-			data: solved,
-			headers: {'Content-Type': 'application/json'}
-		    }).then(function (response) {
-				return response.data;
-		    });
-		    return promise;
-	  	},
-	   getSolved: function(userId) {
-	     var url = '/api/solved/' + userId; 
-	     console.log(userId);
-	     var promise = $http.get(url).then(function (response) {
-		 return response.data;
-	     });
-	     return promise;
-	   },
-	   ,
-	   getProblemSolved: function(userId, probId) {
-	     var url = '/api/solved/problem/' + probId + "/" + userId; 
-	     console.log(userId);
-	     var promise = $http.get(url).then(function (response) {
 		 return response.data;
 	     });
 	     return promise;

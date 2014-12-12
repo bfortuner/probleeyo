@@ -30,10 +30,10 @@
           
           <ul class="list-group">
             <li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i></li>
-            <li class="list-group-item text-right"><span class="pull-left"><strong>Solved</strong></span>{{activity.solved}}</li>
-            <li class="list-group-item text-right"><span class="pull-left"><strong>Authored</strong></span>{{activity.authored}}</li>
-            <li class="list-group-item text-right"><span class="pull-left"><strong>Upvoted</strong></span>{{activity.upvoted}}</li>
-            <li class="list-group-item text-right"><span class="pull-left"><strong>Followers</strong></span>{{activity.followers}}</li>
+            <li class="list-group-item text-right"><span class="pull-left"><strong>Solved</strong></span>{{solvedAttempts.length}}</li>
+            <li class="list-group-item text-right"><span class="pull-left"><strong>Authored</strong></span>{{authored.length}}</li>
+            <!--<li class="list-group-item text-right"><span class="pull-left"><strong>Upvoted</strong></span>{{upvoted.length}}</li>-->
+            <li class="list-group-item text-right"><span class="pull-left"><strong>Followers</strong></span>{{followers.length}}</li>
           </ul> 
                
           <!--<div class="panel panel-default">
@@ -49,33 +49,26 @@
           <ul class="nav nav-tabs" id="myTab">
             <li ng-class="{active:tab == 'Solved'}"><a href="" ng-click="tab = 'Solved'" data-toggle="tab">Solved</a></li>
             <li ng-class="{active:tab == 'Authored'}"><a href="" ng-click="tab = 'Authored'" data-toggle="tab">Authored</a></li>
-            <li ng-class="{active:tab == 'Upvoted'}"><a href="" ng-click="tab = 'Upvoted'" data-toggle="tab">Upvoted</a></li>
+            <li ng-class="{active:tab == 'Followers'}"><a href="" ng-click="tab = 'Followers'" data-toggle="tab">Followers</a></li>
             <!--<li><a href="#messages" data-toggle="tab">Followers</a></li>-->
           </ul>
               
           <div class="tab-content">
-            
             <div ng-class="{active:tab == 'Solved'}" class="tab-pane" id="solved">
-              <div class="table-responsive">
+              <div class="table">
                 <table class="table table-hover">
                   <thead>
                     <tr>
                       <th>Title</th>
-                      <th>Solved</th>
+                      <th>Topic</th>
                       <th>Difficulty</th>
                    </tr>
                   </thead>
-                  <tbody id="items">
-                    <tr>
-                      <td><a href="/problems/{{problem._id}}">My First Problem</a></td>
-                      <td>12/13/2014</td>
-                      <td>2</td>
-                    </tr>
-                    <tr>
-                      <td><a href="/problems/{{problem._id}}">Second Problem Title</a></td>
-                      <td>12/14/2014</td>
-                      <td>4</td>
-                    </tr>
+                  <tbody>
+                    <tr ng-repeat="attempt in solvedAttempts">
+                      <td><a href="/problems/{{attempt._id}}">{{solvedProblems[attempt._id].title}}</a></td>
+                      <td>{{solvedProblems[attempt._id].topic}}</td>
+                      <td>{{solvedProblems[attempt._id].difficulty}}</td>
                   </tbody>
                 </table>
 
@@ -99,17 +92,8 @@
                       <th>Difficulty</th>
                    </tr>
                   </thead>
-                  <tbody id="items">
-                    <tr>
-                      <td><a href="/problems/{{problem._id}}">My First Problem</a></td>
-                      <td>12/13/2014</td>
-                      <td>2</td>
-                    </tr>
-                    <tr>
-                      <td><a href="/problems/{{problem._id}}">Second Problem Title</a></td>
-                      <td>12/14/2014</td>
-                      <td>4</td>
-                    </tr>
+                  <tbody >
+                 
                   </tbody>
                 </table>
 
@@ -123,27 +107,18 @@
              </div><!--/tab-pane-->   
 
 
-            <div ng-class="{active:tab == 'Upvoted'}" class="tab-pane" id="upvoted">
+            <div ng-class="{active:tab == 'Followers'}" class="tab-pane" id="upvoted">
               <div class="table-responsive">
                 <table class="table table-hover">
                   <thead>
                     <tr>
-                      <th>Title</th>
-                      <th>Upvoted</th>
-                      <th>Difficulty</th>
+                      <th>Name</th>
+                      <th>Level</th>
+                      <th>Unfollow</th>
                    </tr>
                   </thead>
-                  <tbody id="items">
-                    <tr>
-                      <td><a href="/problems/{{problem._id}}">My Second Problem</a></td>
-                      <td>12/13/2014</td>
-                      <td>2</td>
-                    </tr>
-                    <tr>
-                      <td><a href="/problems/{{problem._id}}">Second Problem Title</a></td>
-                      <td>12/14/2014</td>
-                      <td>4</td>
-                    </tr>
+                  <tbody >
+            
                   </tbody>
                 </table>
 

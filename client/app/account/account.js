@@ -4,9 +4,13 @@ angular.module('probleeApp')
   .config(function ($routeProvider) {
     $routeProvider
       .when('/login', {
-        templateUrl: 'app/account/login/login.html',
+        templateUrl: 'app/account/login/login_new.html',
         controller: 'LoginCtrl'
       })
+      .when('/loginadmin', {
+        templateUrl: 'app/account/login/login.html',
+        controller: 'LoginCtrl'
+      })      
       .when('/signup', {
         templateUrl: 'app/account/signup/signup.html',
         controller: 'SignupCtrl'

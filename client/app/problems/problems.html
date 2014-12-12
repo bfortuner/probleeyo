@@ -49,8 +49,8 @@
 
 <div class="container">
   <div class="row">
-    <div ng-show="prob.status != 'solved'" class="col-xs-8 btn btn-xl btn-success" ng-click="submitCode()">Run</div>
-    <div ng-show="prob.status != 'solved'" class="col-xs-4 btn btn-xl btn-default" ng-click="getNextProblem()">Skip</div>
-    <div ng-show="prob.status == 'solved'" class="col-xs-12 btn btn-xl btn-success" ng-click="getNextProblem()">Continue</div>
+    <div class="col-xs-8 btn btn-xl btn-success" ng-click="submitCode()">Run</div>
+    <div class="col-xs-4 btn btn-xl btn-default" ng-click="getNextProblem()">Skip</div>
+    <!--<div ng-show="attempt.status == 'correct'" class="col-xs-12 btn btn-xl btn-success" ng-click="getNextProblem()">Continue</div>-->
   </div>
 </div>

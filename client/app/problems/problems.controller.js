@@ -1,25 +1,53 @@
 'use strict';
 
 angular.module('probleeApp')
-  .controller('ProblemsCtrl', function ($scope, $sce, $filter, $route, $routeParams, $location, Problems, Auth, Users) {
+  .controller('ProblemsCtrl', function ($scope, $sce, $filter, $route, $routeParams, $location, Problems, Auth, Users, Attempts) {
 
-  var topic = $routeParams.topic;
-  var _id = $routeParams._id;
-
+  $scope.topic = $routeParams.topic;
+  $scope._id = $routeParams._id;
   $scope.isLoggedIn = Auth.isLoggedIn;
   $scope.isAdmin = Auth.isAdmin;
-  $scope.currentUser = Auth.getCurrentUser;
-  console.log($scope.currentUser._id);
+  $scope.getCurrentUser = Auth.getCurrentUser; //method
+  $scope.currentProblemNum = 0;
+
 
    /* --------- Initialize Problem -------- */
 
+
+  $scope.getProblem = function(probId) {
+    Problems.getProblem(probId).then(function(d) {
+      $scope.prob = d;
+      $scope.prob._id = d._id;
+      $scope.prob.wordBank = getWordBank(d.wordBank);
+      $scope.prob.codeLines = getProbCodeLines(d.code);
+      $scope.correctAnswers = getCorrectAnswers(d.code);
+      $scope.userAnswers = getUserAnswers($scope.correctAnswers.length);
+      $scope.createAttempt();
+    });
+  };
+
+  $scope.createAttempt = function() {
+    $scope.attempt = {};
+    $scope.attempt.attempts = 0;
+    $scope.attempt.status = 'attempted';
+    $scope.attempt.userId = $scope.getCurrentUser()._id;
+    $scope.attempt.probId = $scope.prob._id;
+    Attempts.createAttempt($scope.attempt).then(function(d) {
+        $scope.res = d;
+        $scope.attempt._id = d._id;
+        console.log($scope.attempt._id);
+    }).then( function() {
+        //do nothing
+    });
+  };
+
   $scope.getNextProblem = function() {
-   if (!topic) {
+   if (!$scope.topic) {
       $scope.getAllProblems();  
-    } else if (topic === 'shuffle') {
+    } else if ($scope.topic === 'shuffle') {
       $scope.getShuffleProblems();
     } else {
-      $scope.getProblemByTopic(topic);  
+      $scope.getProblemByTopic($scope.topic);  
     }
   };
 
@@ -50,17 +78,6 @@ angular.module('probleeApp')
     });
   };
 
-  $scope.getProblem = function(probId) {
-      Problems.getProblem(probId).then(function(d) {
-        $scope.prob = d;
-        $scope.prob.status = 'pending';
-        $scope.prob.wordBank = getWordBank(d.wordBank);
-        $scope.prob.codeLines = getProbCodeLines(d.code);
-        $scope.correctAnswers = getCorrectAnswers(d.code);
-        $scope.userAnswers = getUserAnswers($scope.correctAnswers.length);
-      });
-  };
-
   var getNextProblemId = function() {
     if ($scope.currentProblemNum > $scope.problems.length-1) {
         $location.path('/');
@@ -70,7 +87,6 @@ angular.module('probleeApp')
         $scope.currentProblemNum++;
         return id;
     }
-
   };
 
   var getWordBank = function(wordBank) {
@@ -153,29 +169,35 @@ angular.module('probleeApp')
 
   /* -------- Handle User Actions --------- */
 
-  $scope.setProblemSolved = function() {
-    var solved = {'userId':$scope.currentUser._id,
-                  'probId':$scope.probId };
-    Problems.getProblemsByTopic(topic).then(function(d) {
-      $scope.problems = d;
-      $scope.probId = getNextProblemId();
+  $scope.updateAttempt = function() {
+    Attempts.updateAttempt($scope.attempt).then(function(d) {
+        $scope.res = d;
+        console.log($scope.res);
     }).then( function() {
-      $scope.getProblem($scope.probId);
+        //do nothing
     });
   };
 
   $scope.popWord = function(index) {
-    var val = $scope.userAnswers[index].pop();
-    $scope.prob.wordBank.push(val);
+    if ($scope.userAnswers[index].length > 0) {
+      var val = $scope.userAnswers[index].pop();
+      $scope.prob.wordBank.push(val);
+    }
   };
 
   $scope.submitCode = function(){
      if(checkAnswer()) {
-        $scope.prob.status = 'solved';
         $('.alert').show().removeClass('alert-danger').addClass('alert-success').text('Good Job');
-        $scope.setProblemSolved();
+        $scope.attempt.status = 'correct';
+        $scope.attempt.solved = new Date();
+        $scope.attempt.attempts++;
+        $scope.updateAttempt();
+        $scope.getNextProblem();
       } else {
         $('.alert').show().removeClass('alert-success').addClass('alert-danger').text('Incorrect! Try again.');
+        $scope.attempt.status = 'incorrect';
+        $scope.attempt.attempts++;
+        $scope.updateAttempt();
       }
       setTimeout(function(){
         $('.alert').fadeOut();
@@ -194,11 +216,8 @@ angular.module('probleeApp')
   };
 
   var init = function () {
-    console.log('intializing controller');
-    $scope.currentProblemNum = 0;
-    if (_id) {
-      $scope.probId = _id;
-      $scope.getProblem(_id);
+    if ($scope._id) {
+      $scope.getProblem($scope._id);
     } else {
       $scope.getNextProblem();    
     }

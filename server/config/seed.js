@@ -7,10 +7,12 @@
 
 var Problem = require('../api/problem/problem.model');
 var User = require('../api/user/user.model');
+var Attempt = require('../api/attempt/attempt.model');
 var Topic = require('../api/topic/topic.model');
 
 Problem.find({}).remove(function() {
   Problem.create({
+    _id:'548a826a8c3ac9c1492d80ec',
     title: 'Hello String',
     topic: 'Strings',
     difficulty: 1,
@@ -29,6 +31,7 @@ Problem.find({}).remove(function() {
     ]
   },
   {
+    _id:'548a826a8c3ac9c1492d80ee',    
     title: 'Hello String 2',
     topic: 'Strings',
     difficulty: 2,
@@ -50,6 +53,7 @@ Problem.find({}).remove(function() {
     ]
   },
   {
+    _id:'548a826a8c3ac9c1492d80ed',    
     title: 'Table Find Element',
     topic: 'Arrays',
     difficulty: 3,
@@ -66,6 +70,7 @@ Problem.find({}).remove(function() {
     ]
   },
   {
+    _id:'548a826a8c3ac9c1492d80ef',    
     title: 'Testing String Operators',
     topic: 'Strings',
     difficulty: 1,
@@ -80,6 +85,7 @@ Problem.find({}).remove(function() {
     ]
   },
   {
+    _id:'548a826a8c3ac9c1492d80eh',    
     title: 'Testing Math Operators 2',
     topic: 'Numbers',
     difficulty: 1,
@@ -96,6 +102,7 @@ Problem.find({}).remove(function() {
     ]
   },
   {
+    _id:'548a826a8c3ac9c1492d80ei',    
     title: 'Testing For Loops',
     topic: 'Loops',
     difficulty: 1,
@@ -111,6 +118,7 @@ Problem.find({}).remove(function() {
     ]
   },
   {
+    _id:'548a826a8c3ac9c1492d80ej',    
     title: 'Testing Strings inside wildcards',
     topic: 'Strings',
     difficulty: 1,
@@ -162,14 +170,17 @@ Topic.find({}).remove(function() {
  );
 });
 
+Attempt.find().remove();
 
 User.find({}).remove(function() {
   User.create({
+    _id: '5489ff2e7adbe3923d18afd4',
     provider: 'local',
     name: 'Test User',
     email: 'test@test.com',
     password: 'test'
   }, {
+    _id: '548a00a66dfe97a93dd5631b',
     provider: 'local',
     role: 'admin',
     name: 'Admin',
