@@ -137,6 +137,8 @@ angular.module('probleeApp')
     var curWildcardIndex = 0;
     for (var i in codeLines) {
       var curLineStr = codeLines[i];
+      //curLineStr = curLineStr.replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;");
+      //curLineStr = curLineStr.replace("  ", "&nbsp;&nbsp;");
       var curSubList = [];
       var wildcards = curLineStr.match(/\{\{((?!\}\})(?!\{\{).)+\}\}/g);
       if (wildcards) {
@@ -198,7 +200,7 @@ angular.module('probleeApp')
       }
       setTimeout(function(){
         $('.alert').fadeOut();
-      }, 2500);
+      }, 2000);
   };
 
   var checkAnswer = function() {  
