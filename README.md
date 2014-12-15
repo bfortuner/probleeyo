@@ -26,8 +26,7 @@ Responsive web app using MeanJS stack. Visits www.problee.com
 - mongod
 
 ##Run App
-- bower server
-- forever start --spinSleepTime 10000 server/app.js   (daemon)
+- grunt serve
 
 ##OpenShift
 Create App
@@ -36,9 +35,8 @@ Create App
 - docs (https://github.com/DaftMonk/generator-angular-fullstack#openshift)
 
 Push Changes
-- grunt
+- grunt (or grunt --force)
 - grunt buildcontrol:openshift -v
-- rhc app-restart -a probleeyo
 
 ##Useful commands
 - deactivate_node (exit nodeenv)
