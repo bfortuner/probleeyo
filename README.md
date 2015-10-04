@@ -15,6 +15,8 @@ Responsive web app using MeanJS stack. Visits www.problee.com
 - npm install -g generator-angular-fullstack
 - npm install -g forever
 
+*The order of installs is important here
+
 ##Build App
 - git clone https://github.com/bfortuner/probleeyo.git
 - cd probleeyo/
